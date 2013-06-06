@@ -36,7 +36,7 @@ public class AffineCipherTest{
 
     /** Test encryption 1 */
     @Test
-    public void test1(){
+    public void testEncryptionAffine1(){
 	int keyA = 3;
 	int keyB = 7;
 	AffineCipher a = new AffineCipher(keyA, keyB);
@@ -46,7 +46,7 @@ public class AffineCipherTest{
 
     /** Test encryption 2*/
     @Test
-    public void test2(){
+    public void testEncryptionAffine2(){
 	int keyA = 1;
 	int keyB = 3;
 	AffineCipher a = new AffineCipher(keyA, keyB);
@@ -56,7 +56,7 @@ public class AffineCipherTest{
 
     /** Test encryption 3*/
     @Test
-    public void test3(){
+    public void testEncryptionAffine3(){
 	int keyA = 9;
 	int keyB = 23;
 	AffineCipher a = new AffineCipher(keyA, keyB);
@@ -66,14 +66,13 @@ public class AffineCipherTest{
 
     /** Test encryption 4*/
     @Test
-    public void test4(){
+    public void testEncrptionAffine4(){
 	int keyA = 9;
 	int keyB = 23;
 	AffineCipher a = new AffineCipher(keyA, keyB);
 	String word = "HELLO";
 	assertEquals("ihsst",a.encrypt(word));
     }
-
 
 
     /** Test illegal argument exception word 1*/
@@ -99,10 +98,11 @@ public class AffineCipherTest{
     /** Test illegal argument exception word 3*/
     @Test(expected=IllegalArgumentException.class)
     public void testIllegalArgumentExceptionWord3(){
-	int cipherKey = 4;
-	ShiftCipher s = new ShiftCipher(cipherKey);
+	int keyA = 4;
+	int keyB = 5;
+	AffineCipher a = new AffineCipher(keyA, keyB);
 	String word = "hello4";
-	String cipher = s.encrypt(word);
+	String cipher = a.encrypt(word);
     }
 
     /** Test illegal argument exception word 4*/
@@ -115,6 +115,44 @@ public class AffineCipherTest{
 	String cipher = a.encrypt(word);
     }
 
-   
-    
+    /** Test illegal argument exception co prime key*/
+    @Test(expected=IllegalArgumentException.class)
+    public void testIllegalArgumentExceptionCoPrime(){
+        int keyA = 4;
+	int keyB = 7;
+	AffineCipher a = new AffineCipher(keyA, keyB);
+	String word = "hello";
+	String cipher = a.decrypt(word);
+    }
+
+    /** Test decryption word 1*/
+    @Test
+    public void testDecryptAffine1(){
+        int keyA = 1;
+	int keyB = 3;
+	AffineCipher a = new AffineCipher(keyA, keyB);
+	String word = "khoor";
+	assertEquals("hello",a.decrypt(word));
+    }
+
+    /** Test decryption word 2*/
+    @Test
+    public void testDecryptAffine2(){
+        int keyA = 5;
+	int keyB = 22;
+	AffineCipher a = new AffineCipher(keyA, keyB);
+	String word = "ekdwjlw";
+	assertEquals("miranda",a.decrypt(word));
+    }
+
+    /** Test decryption word 3*/
+    @Test
+    public void testDecryptAffine3(){
+        int keyA = 21;
+	int keyB = 13;
+	AffineCipher a = new AffineCipher(keyA, keyB);
+	String word = "fZgNaYn";
+	assertEquals("miranda",a.decrypt(word));
+    }
+
 }

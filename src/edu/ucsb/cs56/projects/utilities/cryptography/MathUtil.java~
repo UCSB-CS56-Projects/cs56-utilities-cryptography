@@ -1,0 +1,41 @@
+package edu.ucsb.cs56.projects.utilities.cryptography;
+
+/**
+ * The class contains a collection of utility methods for mathematical
+ * operations.
+ @author Miranda Aperghis
+ @version 
+ * */
+public class MathUtil {
+
+  /** 
+   * Method that calculates the Greatest Common Divisor (GCD) of two
+   * positive integer numbers.
+   * */
+  public static final int gcd(int x1,int x2) {
+      if(x1<0 || x2<0) {
+          throw new IllegalArgumentException("Cannot compute the GCD "+
+                                             "if one integer is negative.");
+      }
+      int a,b,g,z;
+
+      if(x1>x2) {
+          a = x1;
+          b = x2;
+      } else {
+          a = x2;
+          b = x1;
+      }
+
+      if(b==0) return 0;
+
+      g = b;
+      while (g!=0) {
+          z= a%g;
+          a = g;
+          g = z;
+      }
+      return a;
+  }
+
+}

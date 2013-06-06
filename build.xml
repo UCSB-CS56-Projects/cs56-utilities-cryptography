@@ -18,12 +18,7 @@
   </target>
   
   <target name="run" depends="compile" description="Run the project">
-    <!--<java classname="edu.ucsb.cs56.projects.utilities.Cryptography.Cryptography" classpath="build" fork="true"/>-->
-    <echo>
-      Currently there is no main method to run the ciphers.
-      To run the tests type the command:
-      ant test
-    </echo>
+    <java classname="edu.ucsb.cs56.projects.utilities.cryptography.CryptographyGUI" classpath="build" fork="true"/>
   </target>
   
   <target name="clean" description="delete unnecessary files and directories">

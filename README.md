@@ -16,7 +16,7 @@ Affine Cipher:
 
 Vigenere Cipher:
       Takes a String s as the key.
-      Encrypts the plaintext by applying a the Shift Cipher to each character in the plaintext using the associated letter in the key as the key.
+      Encrypts the plaintext by applying the Shift Cipher to each character in the plaintext using the associated letter in the key as the key.
 
       e.g.
       plaintext = "random"
@@ -26,3 +26,17 @@ Vigenere Cipher:
       	   	abcabc
 
       Giving:   rbpdpo
+
+Format of Input for GUI:
+
+General:
+	No spaces are to be used in the key or plaintext input fields. Capital letters can be used but will be translated to lowercase prior to any cryptographic operation being performed on them.
+
+Shift Cipher:
+	Key text field should contain a single integer within the range of 0 to 25 inclusive.
+
+Affine Cipher:
+	Key text field should contain two integers seperated by a single space, with the first integer being with the range of 0 to 25 inclusive and the second integer being greater than 0. If decrypting, the additional condition that the first integer must not be a coprime with 26 also holds.
+
+Vigenere Cipher:
+	Key text field should contain a string of characters.
