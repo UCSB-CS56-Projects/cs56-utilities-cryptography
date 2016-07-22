@@ -7,13 +7,21 @@
   <property name="javadocDest" value="${webRoot}/${projectName}/javadoc"/>
   <property name="javadocURL" value="${webBaseUrl}/${projectName}/javadoc"/>
   
-  <target name="compile" description="compiles my code">
-    <mkdir dir="build"/> 
-    <javac srcdir="src" destdir="build" includeantruntime="false" debug="true" debuglevel="lines,source">
-      <classpath>
-	<pathelement location="build"/>
-	<pathelement location="lib/junit-4.8.2.jar"/>
-      </classpath>
+  <path id="project.class.path">
+    <pathelement location="build"/>
+    <pathelement location="lib/junit-4.8.2.jar"/>
+  </path>
+  
+
+  
+  <target name="compile" description="compile the code">
+    <mkdir dir="build" />
+    <javac srcdir="src"
+	   destdir="build"
+	   includeantruntime="false"
+	   debug="true"
+	   debuglevel="lines,vars,source">
+      <classpath refid="project.class.path" />
     </javac>
   </target>
   
@@ -28,23 +36,37 @@
     <delete dir="javadoc" quiet="true"/>
     <delete dir="build" quiet="true"/>
   </target>
-  
-  <target name="javadoc" depends="compile" description="generate the javadocs">
-    <delete dir="javadoc" quiet="true"/>
-    <javadoc destdir="javadoc" author="true" version="true" use="true">
-      <fileset dir="src" includes="**/*.java"/>
+
+  <property name="javadoc_absolute_path" location="javadoc"/>
+  <property name="public_javadoc_absolute_path" location="../cs56_utilities_cryptography_javadoc/javadoc"/>
+  <target name="javadoc" depends="compile" description="generate javadoc">
+    <mkdir dir="javadoc"/>
+    <delete>
+      <fileset dir="javadoc" />
+    </delete>
+    <javadoc destdir="javadoc">
+      <fileset dir="src/edu/ucsb/cs56/projects/utilities/cryptography" >
+	<include name="*.java"/>
+      </fileset>
+      <classpath refid="project.class.path" />
+      <link href="http://docs.oracle.com/javase/8/docs/api/" />
     </javadoc>
-    <!-- delete the old javadoc -->
-    <delete quiet="true" dir="${javadocDest}"/>
-    <!--
-	copy everything you just made to the javadoc destination, and then make it readable 
-    -->
-    <copy todir="${javadocDest}">
-      <fileset dir="javadoc"/>
+    <echo>
+      javadoc written to file://${javadoc_absolute_path}/index.html
+      copying to ${public_javadoc_absolute_path}/index.html
+    </echo>
+    <delete quiet="true">
+      <fileset dir="${public_javadoc_absolute_path}" />
+    </delete>
+    <mkdir dir="${public_javadoc_absolute_path}" />
+    <copy todir="${public_javadoc_absolute_path}">
+      <fileset dir="javadoc" />
     </copy>
-    <chmod dir="${javadocDest}" perm="755" type="dir" includes="**"/>
-    <chmod dir="${javadocDest}" perm="755" type="file" includes="**/*"/>
-    <echo>Javadoc deployed to ${javadocURL}</echo>
+    <echo>
+      javadoc copied to ${public_javadoc_absolute_path}/index.html
+      TO PUBLISH: cd into that repo, then git add javadoc;
+      git commit -am "update javadoc"; git push origin gh-pages
+    </echo>
   </target>
   
   <target name="test" depends="compile" description="run junit tests">

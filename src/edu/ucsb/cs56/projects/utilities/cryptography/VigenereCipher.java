@@ -83,4 +83,24 @@ public class VigenereCipher {
 	
 	return plaintext;
     }
+    
+	
+
+//Generate a random ten-letters String.
+	public void generateKey() {
+		final char[] letters=new char [] {'A','B','C','D','E','F',
+				'G','H','I','J','K','L','M','N','O','P','Q','R',
+				'S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g',
+			'h','i','j','k','l','m','n','o','p','q','r','s','t'
+			,'u','v','w','x','y','z'};
+		cipherKey=Character.toString(letters[(int)(Math.random()*26)]);
+	for(int i=0;i<9;++i){
+		cipherKey+=letters[(int)(Math.random()*52)];
+		}
+	cipherKey=cipherKey.toLowerCase();
+	
+	}
+	
+	
+	
 }

@@ -6,7 +6,7 @@ package edu.ucsb.cs56.projects.utilities.cryptography;
    @author Callum Steele
    @version Project CS56, S13, 05/29/2013
  */
-public class AffineCipher{
+public class AffineCipher {
     private int keyA;
     private int keyB;
 
@@ -64,7 +64,7 @@ public class AffineCipher{
        @return the ciphertext (the encrypted plaintext)
     */
     public String encrypt(String word){
-	if(word == null) throw new IllegalArgumentException();
+	if(word == null||word.length()==0) throw new IllegalArgumentException();
 	String result = "";
 	String wordLower = word.toLowerCase();
 	
@@ -100,5 +100,20 @@ public class AffineCipher{
 	}
 	return result;
     }
+
+	
+//Terry2
+	//Generate random keyA and KeyB, KeyB is not coprime with 26
+	public void generateKey() {
+		keyA=(int)(Math.random()*26);
+		keyB=(int)(Math.random()*100+1);
+		while(!MathUtil.coPrime(keyB, 26)){
+			keyB=(int)(Math.random()*100+1);
+		}
+	}
+	
+	
+	
+	
 
 }

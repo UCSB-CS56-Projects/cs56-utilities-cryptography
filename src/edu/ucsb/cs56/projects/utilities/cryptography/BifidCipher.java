@@ -8,7 +8,7 @@ import java.util.Arrays;
     @version CS56, W15, 3/10/2015
 */
 
-public class BifidCipher {
+public class BifidCipher  {
 
     private String cipherKey;
 
@@ -166,5 +166,23 @@ public class BifidCipher {
         }
         return Table5x5;
     }
+    
+	
+
+
+  //Generate a random ten-letters String.
+	public void generateKey() {
+		final char[] letters=new char [] {'a','b','c','d','e','f','g',
+			'h','i','j','k','l','m','n','o','p','q','r','s','t'
+			,'u','v','w','x','y','z','A','B','C','D','E','F',
+			'G','H','I','J','K','L','M','N','O','P','Q','R',
+			'S','T','U','V','W','X','Y','Z'};
+		cipherKey=Character.toString(letters[(int)(Math.random()*52)]);
+	for(int i=0;i<9;++i){
+		cipherKey+=letters[(int)(Math.random()*52)];
+		}
+	
+	}
+
 
 }

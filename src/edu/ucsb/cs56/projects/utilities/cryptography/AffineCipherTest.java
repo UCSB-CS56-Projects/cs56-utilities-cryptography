@@ -154,5 +154,14 @@ public class AffineCipherTest{
 	String word = "fZgNaYn";
 	assertEquals("miranda",a.decrypt(word));
     }
-
+    
+    /** Test generateKey 1*/
+    @Test
+    public void testGenerateKey(){
+    	AffineCipher a=new AffineCipher();
+    	a.generateKey();
+    	assertEquals(a.getKeyA()<=25&&a.getKeyA()>=0,true);
+    	assertEquals(a.getKeyB()>0,true);
+    	assertEquals(MathUtil.coPrime(a.getKeyB(),26),false);
+    }
 }
