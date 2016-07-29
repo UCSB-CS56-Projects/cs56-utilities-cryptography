@@ -162,6 +162,6 @@ public class AffineCipherTest{
     	a.generateKey();
     	assertEquals(a.getKeyA()<=25&&a.getKeyA()>=0,true);
     	assertEquals(a.getKeyB()>0,true);
-    	assertEquals(MathUtil.coPrime(a.getKeyB(),26),false);
+    	assertEquals(MathUtil.coPrime(a.getKeyB(),26),true);
     }
 }
