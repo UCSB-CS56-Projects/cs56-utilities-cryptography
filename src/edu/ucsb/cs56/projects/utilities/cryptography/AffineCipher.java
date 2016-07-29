@@ -103,14 +103,14 @@ public class AffineCipher {
 
 	
 // keyA range from 1-26
-	//Generate random keyA and KeyB, KeyB is not coprime with 26
+	//Generate random keyA and KeyB, KeyA is coprime with 26
 	public void generateKey() {
 		keyA=(int)(Math.random()*25+1);
-		keyB=(int)(Math.random()*100+1);
-		while(!MathUtil.coPrime(keyB, 26)){
-			keyB=(int)(Math.random()*100+1);
+		keyB=(int)(Math.random()*60+1);
+		while(!MathUtil.coPrime(keyA, 26)){
+			keyA=(int)(Math.random()*25+1);
 		}
-	}
+	
 	
 	
 	

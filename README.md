@@ -80,7 +80,7 @@ Shift Cipher:
 	Key text field should contain a single integer within the range of 0 to 25 inclusive.
 
 Affine Cipher:
-	Key text field should contain two integers seperated by a single space, with the first integer being with the range of 0 to 25 inclusive and the second integer being greater than 0. If decrypting, the additional condition that the first integer must not be a coprime with 26 also holds.
+	Key text field should contain two integers seperated by a single space, with the first integer being with the range of 0 to 25 inclusive and the second integer being greater than 0. If decrypting, the additional condition that the first integer must be a coprime with 26 also holds.
 
 Vigenere Cipher:
 	Key text field should contain a string of characters.
@@ -103,29 +103,18 @@ The program itself takes in an input string and input key to encrypt or decrypt 
 
 M16 final remarks:
 
--The methods of encryption and decryption have not been changed.
-
--Now, you can generate random keys.
-
--A new GUI has been added, which have one big input text area and output text area, four seperate key input areas.
-
--Now, you can look at the javadoc on website.
-
--The keys and ciphered text will be saved to a file, default named output.txt.
-
--You can decide where the output file will be saved
-
--The methods of anonymous ActionListener class are factored out to a class called GUIActionMethid.
-
--The lambda function has been used on implementing anonymous ActionListener.
-
--You get another window for all ciphers. The class AllCipherGUI is for that window.
-
--If you want to modify or add new function for each widget, for example, to edit error message, you may look at the GUIActionMethod class.
-
--If you want to add new widget or modify the GUI, you may look at the CryptographyGUI class or AllCipherGUI classes.
-
--If you want to edit or add algorithm for ciphers, you may look at the classes AffineCipher, ShiftCipher...
+1. The methods of encryption and decryption have not been changed.
+2. Now, you can generate random keys.
+3. A new GUI has been added, which have one big input text area and output text area, four seperate key input areas.
+4. Now, you can look at the javadoc on website.
+5. The keys and ciphered text will be saved to a file, default named output.txt.
+6. You can decide where the output file will be saved
+7. The methods of anonymous ActionListener class are factored out to a class called GUIActionMethid.
+8. The lambda function has been used on implementing anonymous ActionListener.
+9. You get another window for all ciphers. The class AllCipherGUI is for that window.
+10. If you want to modify or add new function for each widget, for example, to edit error message, you may look at the GUIActionMethod class.
+11. If you want to add new widget or modify the GUI, you may look at the CryptographyGUI class or AllCipherGUI classes.
+12. If you want to edit or add algorithm for ciphers, you may look at the classes AffineCipher, ShiftCipher...
 
 
 

@@ -169,7 +169,7 @@ public class GUIActionMethod {
 					"input is a String without non-alphabetic characters.\nKey takes 2 integers " +
 					"(a and b) separated by a single space the first \ninteger " +
 					"being within the range 0 to 25 and the second greater than 0.\n" +
-					"If Decrypting, the second integer must not be a coprime with 26",
+					"If Decrypting, the first integer must be a coprime with 26",
 					"Affine Cipher Input Error");
 		}
 	}
@@ -660,8 +660,8 @@ public class GUIActionMethod {
 				"text field should contain two integers seperated by a single " +
 				"space, \nwith the first integer being with the range of 0 to 25 " +
 				"\ninclusive and the second integer being greater than 0. \nIf decrypting, " +
-				"the additional condition that the first integer must \nnot be a " +
-				"coprime with 26 also holds.\n\nVigenere Cipher:\n    Key text field " +
+				"the additional condition that the first integer must \n be a " +
+				"coprime with 26.\n\nVigenere Cipher:\n    Key text field " +
 				"should contain a string of characters.\n\nBifid Cipher:\n    The " +
 				"plaintext for the Bifid Cipher can contain spaces but no numbers \nand " +
 				"it will convert all characters to uppercase. " +
