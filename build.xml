@@ -35,6 +35,7 @@
     </delete>
     <delete dir="javadoc" quiet="true"/>
     <delete dir="build" quiet="true"/>
+    <delete dir="dist" quiet="true"/>
   </target>
 
   <property name="javadoc_absolute_path" location="javadoc"/>
@@ -84,4 +85,19 @@
       <formatter type="plain" usefile="false" /> 
     </junit>
   </target>
+  
+  <target name="jar">
+    <mkdir dir="dist" />
+   <jar destfile="dist/cs56-utilities-cryptography.jar"
+      basedir="src/edu/ucsb/cs56/projects/utilities/cryptography"
+      includes="edu/ucsb/cs56/projects/utilities/cryptography/**"
+      >
+
+      <manifest>
+         <attribute name="Main-Class" value="com.edu.ucsb.cs56.projects.utilities.cryptography"/>
+      </manifest>
+
+   </jar>
+</target>
+
 </project>
