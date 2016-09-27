@@ -110,7 +110,7 @@ public class AffineCipher {
 		while(!MathUtil.coPrime(keyA, 26)){
 			keyA=(int)(Math.random()*25+1);
 		}
-	
+	}	
 	
 	
 	
