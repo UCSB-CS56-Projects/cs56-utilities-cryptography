@@ -93,6 +93,7 @@ public class CryptographyGUI
 	public static void main (String[] args) {
 		
 		UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+		JFrame.setDefaultLookAndFeelDecorated(true);
 		CryptographyGUI cryptoGUI = new CryptographyGUI();
 
 		cryptoGUI.go();
