@@ -1,4 +1,6 @@
 package edu.ucsb.cs56.projects.utilities.cryptography;
+
+import javax.swing.UIManager.*;
 try {
     for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
         if ("Nimbus".equals(info.getName())) {
@@ -29,10 +31,6 @@ import java.util.ArrayList;
 import java.awt.datatransfer.*;
 import java.awt.Toolkit;
 import javax.swing.JTextArea;
-
-import javax.swing.UIManager.*;
-
-
 
 /**
    A class to implement the Cryptography GUI.
