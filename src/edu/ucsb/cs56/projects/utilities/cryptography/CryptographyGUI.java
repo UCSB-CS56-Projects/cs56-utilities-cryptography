@@ -1,17 +1,5 @@
 package edu.ucsb.cs56.projects.utilities.cryptography;
 
-import javax.swing.UIManager.*;
-try {
-    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-        if ("Nimbus".equals(info.getName())) {
-            UIManager.setLookAndFeel(info.getClassName());
-            break;
-        }
-    }
-} catch (Exception e) {
-    // If Nimbus is not available, you can set the GUI to another look and feel.
-}
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -31,6 +19,18 @@ import java.util.ArrayList;
 import java.awt.datatransfer.*;
 import java.awt.Toolkit;
 import javax.swing.JTextArea;
+
+import javax.swing.UIManager.*;
+try {
+    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+        if ("Nimbus".equals(info.getName())) {
+            UIManager.setLookAndFeel(info.getClassName());
+            break;
+        }
+    }
+} catch (Exception e) {
+    // If Nimbus is not available, you can set the GUI to another look and feel.
+}
 
 /**
    A class to implement the Cryptography GUI.
