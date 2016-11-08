@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.awt.datatransfer.*;
 import java.awt.Toolkit;
 import javax.swing.JTextArea;
+import javax.swing.UIManager.*;
 
 
 /**
@@ -33,8 +34,6 @@ import javax.swing.JTextArea;
 
 public class CryptographyGUI
 {
-	
-	import javax.swing.UIManager.*;
 	try {
 	    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 		if ("Nimbus".equals(info.getName())) {
