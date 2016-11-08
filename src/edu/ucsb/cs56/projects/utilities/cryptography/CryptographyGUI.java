@@ -34,16 +34,6 @@ import javax.swing.UIManager.*;
 
 public class CryptographyGUI
 {
-	try {
-	    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		if ("Nimbus".equals(info.getName())) {
-		    UIManager.setLookAndFeel(info.getClassName());
-		    break;
-		}
-	    }
-	} catch (Exception e) {
-	    // If Nimbus is not available, you can set the GUI to another look and feel.
-	}
 	ShiftCipher shiftCipher = null;
 	AffineCipher affineCipher = null;
 	VigenereCipher vigenereCipher = null;
@@ -101,6 +91,8 @@ public class CryptographyGUI
 	@param args Default arguments sent to main.
 	 */
 	public static void main (String[] args) {
+		
+		UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
 		CryptographyGUI cryptoGUI = new CryptographyGUI();
 
 		cryptoGUI.go();
