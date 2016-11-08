@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.awt.datatransfer.*;
 import java.awt.Toolkit;
 import javax.swing.JTextArea;
-import javax.swing.UIManager.*;
+import javax.swing.UIManager;
 
 
 /**
