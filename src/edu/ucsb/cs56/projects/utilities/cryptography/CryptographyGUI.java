@@ -89,6 +89,12 @@ public class CryptographyGUI
 	@param args Default arguments sent to main.
 	 */
 	public static void main (String[] args) {
+		//checks to see if a welcomeWindow flag file exists. If the file exists, then the user had previously
+		//	opted out of having a welcome window appear via a checkBox.
+		File f = new File("welcomeWin.txt");
+		if(!f.exists()) { 
+			WelcomeWindow welcWin = new WelcomeWindow();
+		}
 		CryptographyGUI cryptoGUI = new CryptographyGUI();
 
 		cryptoGUI.go();
