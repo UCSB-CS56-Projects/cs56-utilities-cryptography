@@ -19,7 +19,7 @@ public class WelcomeWindow {
 		frame = new JFrame();
 		frame.setSize(680,680);
 		frame.setTitle("Welcome");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		checkBox = new JCheckBox();		
 		frame.getContentPane().add(BorderLayout.CENTER, checkBox);
