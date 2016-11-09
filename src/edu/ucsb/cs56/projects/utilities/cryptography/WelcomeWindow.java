@@ -14,16 +14,18 @@ import javax.swing.JCheckBox;
 public class WelcomeWindow {		
 	JFrame frame;
 	JCheckBox checkBox;
-    	frame = new JFrame();
-	frame.setSize(680,680);
-	frame.setTitle("Welcome");
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+    	public void go(){
+		frame = new JFrame();
+		frame.setSize(680,680);
+		frame.setTitle("Welcome");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-	checkBox = new JCheckBox();		
-	frame.getContentPane().add(BorderLayout.CENTER, checkBox);
-	checkBox.addActionListener(new CheckListener());
-	frame.setVisible(true);	
-
+		checkBox = new JCheckBox();		
+		frame.getContentPane().add(BorderLayout.CENTER, checkBox);
+		checkBox.addActionListener(new CheckListener());
+		frame.setVisible(true);	
+	}
 	// inside class that implements the ActionListener class to all the checkBox to give output file.
 	class CheckListener implements ActionListener{
 		public void actionPerformed(ActionEvent event){
