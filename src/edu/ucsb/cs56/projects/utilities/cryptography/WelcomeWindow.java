@@ -1,23 +1,49 @@
 package edu.ucsb.cs56.projects.utilities.cryptography;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JCheckBox;
 
-/**
-   A class to implement the WelcomeWindow that is called by CryptographyGUI
-   @author Keith Long
-   @version Project CS56, F16, 11/07/16
- */
+public class WelcomeWindow {		
+	JFrame frame;
+	JCheckBox checkBox;
+    	frame = new JFrame();
+	frame.setSize(680,680);
+	frame.setTitle("Welcome");
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-public class WelcomeWindow
-{
-    JFrame frame;
+	checkBox = new JCheckBox();		
+	frame.getContentPane().add(BorderLayout.CENTER, checkBox);
+	checkBox.addActionListener(new CheckListener());
+	frame.setVisible(true);	
 
-
-  
-    frame = new JFrame();
-		frame.setSize(680,680);
-		frame.setTitle("Welcome");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
-    frame.setVisible(true);
+	// inside class that implements the ActionListener class to all the checkBox to give output file.
+	class CheckListener implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			File file = new File("WelcomeWindow.txt"); 
+			//Create the file
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//Write Content
+			FileWriter writer;
+			try {
+				writer = new FileWriter(file);
+				writer.write("Checked");
+				writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}			
+		}
+	}
 }
+
