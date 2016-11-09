@@ -94,6 +94,7 @@ public class CryptographyGUI
 		File f = new File("welcomeWin.txt");
 		if(!f.exists()) { 
 			WelcomeWindow welcWin = new WelcomeWindow();
+			welcWin.go();
 		}
 		CryptographyGUI cryptoGUI = new CryptographyGUI();
 
