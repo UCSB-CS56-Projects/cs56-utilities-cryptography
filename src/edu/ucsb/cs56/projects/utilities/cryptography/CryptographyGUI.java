@@ -20,6 +20,8 @@ import java.awt.datatransfer.*;
 import java.awt.Toolkit;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.ClassNotFoundException;
 
 
 /**
@@ -95,7 +97,7 @@ public class CryptographyGUI
 			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
 		}catch (UnsupportedLookAndFeelException e){
 			e.printstacktrace();
-		}catch (ClassNotfoundException e){
+		}catch (ClassNotFoundException e){
 			e.printstacktrace();
 		}
 		JFrame.setDefaultLookAndFeelDecorated(true);
