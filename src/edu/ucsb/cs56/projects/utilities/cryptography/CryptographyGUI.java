@@ -95,9 +95,9 @@ public class CryptographyGUI
 	public static void main (String[] args) {
 		try{	
 			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
-		}catch (UnsupportedLookAndFeelException e){
+		}catch (final UnsupportedLookAndFeelException e){
 			e.printstacktrace();
-		}catch (ClassNotFoundException e){
+		}catch (final ClassNotFoundException e){
 			e.printstacktrace();
 		}
 		JFrame.setDefaultLookAndFeelDecorated(true);
