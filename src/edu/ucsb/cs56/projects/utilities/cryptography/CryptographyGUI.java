@@ -91,8 +91,13 @@ public class CryptographyGUI
 	@param args Default arguments sent to main.
 	 */
 	public static void main (String[] args) {
-		
-		UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+		try{	
+			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+		}catch (UnsupportedLookAndFeelException e){
+			e.printstacktrace();
+		}catch (ClassNotfoundException e){
+			e.printstacktrace();
+		}
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		CryptographyGUI cryptoGUI = new CryptographyGUI();
 

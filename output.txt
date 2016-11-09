@@ -1,0 +1,4 @@
+shift,0,sadg
+affine,1 52,sadg
+vigenere,oufxcxthos,guid
+bifid,quBAsEWLNC,PCQO
