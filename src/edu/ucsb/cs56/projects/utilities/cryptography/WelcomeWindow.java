@@ -21,7 +21,7 @@ public class WelcomeWindow {
 		frame.setTitle("Welcome");
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		checkBox = new JCheckBox();		
+		checkBox = new JCheckBox("Do Not Show This Welcome Window Again");		
 		frame.getContentPane().add(BorderLayout.CENTER, checkBox);
 		checkBox.addActionListener(new CheckListener());
 		frame.setVisible(true);	
