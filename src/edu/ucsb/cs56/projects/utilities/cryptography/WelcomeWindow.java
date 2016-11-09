@@ -29,7 +29,7 @@ public class WelcomeWindow {
 	// inside class that implements the ActionListener class to all the checkBox to give output file.
 	class CheckListener implements ActionListener{
 		public void actionPerformed(ActionEvent event){
-			File file = new File("WelcomeWindow.txt"); 
+			File file = new File("WelcomeWin.txt"); 
 			//Create the file
 			try {
 				file.createNewFile();
