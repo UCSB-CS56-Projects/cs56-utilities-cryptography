@@ -21,7 +21,7 @@ import java.awt.Toolkit;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.ClassNotFoundException;
+import java.lang.ClassNotFoundException;
 
 
 /**
