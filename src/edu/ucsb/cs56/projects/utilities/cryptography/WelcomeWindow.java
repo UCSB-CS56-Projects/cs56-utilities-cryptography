@@ -31,21 +31,24 @@ public class WelcomeWindow {
 	class CheckListener implements ActionListener{
 		public void actionPerformed(ActionEvent event){
 			File file = new File("WelcomeWin.txt"); 
-			//Create the file
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			//Write Content
-			FileWriter writer;
-			try {
-				writer = new FileWriter(file);
-				writer.write("Checked");
-				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}			
+			if (checkBox.isSelected()){
+				//Create the file
+				try {
+					file.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				//Write Content
+				FileWriter writer;
+				try {
+					writer = new FileWriter(file);
+					writer.write("Checked");
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else 
+			file.delete();
 		}
 	}
 }
