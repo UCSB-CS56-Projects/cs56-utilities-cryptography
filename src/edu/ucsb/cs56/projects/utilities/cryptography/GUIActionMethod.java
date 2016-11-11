@@ -3,7 +3,11 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.io.*;
-
+import javax.swing.filechooser.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.SwingUtilities;
 
 /**
 A class holding methods for action listener, will be called in actionPerform of every action listener.
@@ -16,7 +20,7 @@ public class GUIActionMethod {
 	//enable to change the state of the original GUI
 	CryptographyGUI GUI; 
 	//enable to change the state of the original GUI
-	AllCipherGUI allGUI; 
+	AllCipherGUI allGUI;
 
 	public GUIActionMethod(CryptographyGUI GUI){
 		this.GUI=GUI;
@@ -731,5 +735,17 @@ public class GUIActionMethod {
 		allcipherGUI.createFrame();
 
 	}
+
+        public void SaveLocationGUI(){
+	        JFileChooser chooser = new JFileChooser();
+		chooser.setCurrentDirectory(new java.io.File("."));
+		chooser.setDialogTitle("Choose Folder");
+	        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+		    GUI.addressText.setText("" + chooser.getCurrentDirectory());
+		} else {
+		    System.out.println("No Selection ");
+		}
+    }
 
 }
