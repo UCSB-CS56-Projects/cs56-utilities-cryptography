@@ -20,6 +20,7 @@ public class WelcomeWindow {
 		frame.setSize(680,680);
 		frame.setTitle("Welcome");
 		frame.setLocationRelativeTo(null) ;
+		//DISPOSE closes just this frame not all associated with CryptoGui
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		checkBox = new JCheckBox("Do Not Show This Welcome Window Again");		
