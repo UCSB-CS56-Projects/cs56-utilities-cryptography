@@ -88,10 +88,17 @@ public class CryptographyGUI
 	/** Calls the function to create the GUI.
 	@param args Default arguments sent to main.
 	 */
-	public static void main (String[] args) {
+	public static void main (String[] args) {		
 		CryptographyGUI cryptoGUI = new CryptographyGUI();
-
 		cryptoGUI.go();
+		
+		//checks to see if a welcomeWindow flag file exists. If the file exists, then the user had previously
+		//opted out of having a welcome window appear via a checkBox.
+		File f = new File("welcomeWin.txt");
+		if(!f.exists()) { 
+			WelcomeWindow welcWin = new WelcomeWindow();
+			welcWin.go();
+		}
 	}
 
 	/**    
