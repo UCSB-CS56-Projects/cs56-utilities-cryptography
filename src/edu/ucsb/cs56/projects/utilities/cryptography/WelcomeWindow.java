@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 	import javax.swing.JCheckBox;
 	import javax.swing.JButton;
 
-public class welcomeWindow {		
+public class WelcomeWindow {		
 	JFrame frame;
 	JCheckBox checkBox;
 	JLabel welcomeLabel, infoLabel;
