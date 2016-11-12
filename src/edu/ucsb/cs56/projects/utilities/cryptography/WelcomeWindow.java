@@ -30,7 +30,7 @@ public class WelcomeWindow {
 	
     	public void go(){
 		frame = new JFrame();
-		frame.setSize(680,680);
+		frame.setSize(680,800);
 		frame.setTitle("Welcome");
 		frame.setLocationRelativeTo(null) ;
 		//DISPOSE closes just this frame not all associated with CryptoGui
