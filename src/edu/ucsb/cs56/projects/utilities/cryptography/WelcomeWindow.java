@@ -73,31 +73,5 @@ public class WelcomeWindow {
 			file.delete();
 		}
 	}
-	class infoButtonListener implements ActionListener{
-		public void actionPerformed(ActionEvent event){
-			infoLabel = new JLabel();
-			welcomeButton = new JButton("<html>Welcome</html>");
-			infoLabel.setText("Heyyy");
-			infoPanel.add(infoLabel);
-			
-			
-			frame.getContentPane().remove(textPanel);
-			frame.getContentPane().remove(infoButton);
-			frame.getContentPane().invalidate();
-			frame.getContentPane().validate();
-			frame.getContentPane().add(BorderLayout.WEST, welcomeButton);
-			frame.getContentPane().add(BorderLayout.CENTER, infoPanel);
-		}
-	}
-	class welcomeButtonListener implements ActionListener{
-		public void actionPerformed(ActionEvent event){
-			frame.getContentPane().remove(infoPanel);
-			frame.getContentPane().remove(welcomeButton);
-			frame.getContentPane().invalidate();
-			frame.getContentPane().validate();
-			frame.getContentPane().add(BorderLayout.EAST, infoButton);
-			frame.getContentPane().add(BorderLayout.CENTER, textPanel);
-		}
-	}
 }
 
