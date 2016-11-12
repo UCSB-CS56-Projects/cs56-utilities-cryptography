@@ -1,3 +1,5 @@
+package edu.ucsb.cs56.projects.utilities.cryptography;
+
 	import java.awt.BorderLayout;
 	import java.awt.event.ActionEvent;
 	import java.awt.event.ActionListener;
@@ -8,8 +10,8 @@
 	import javax.swing.BoxLayout;
 	import javax.swing.JFrame;
 	import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JLabel;
+	import javax.swing.JScrollPane;
+	import javax.swing.JLabel;
 	import javax.swing.JCheckBox;
 	import javax.swing.JButton;
 
