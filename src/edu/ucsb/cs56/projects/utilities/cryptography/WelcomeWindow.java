@@ -10,10 +10,14 @@ import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JCheckBox;
+import javax.swing.JButton;
 
 public class WelcomeWindow {		
 	JFrame frame;
 	JCheckBox checkBox;
+	JLabel welcomeLabel, infoLabel;
+	JButton welcomeButton, infoButton;
+	JPanel checkPanel, textPanel, infoPanel;
 	
     	public void go(){
 		frame = new JFrame();
@@ -22,10 +26,23 @@ public class WelcomeWindow {
 		frame.setLocationRelativeTo(null) ;
 		//DISPOSE closes just this frame not all associated with CryptoGui
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		checkPanel = new JPanel();
+		textPanel = new JPanel();
+		welcomelabel = new JLabel();
+		infoButton = new JButton("<html>Input<br>Info</html>");
+		infoButton.addActionListener(new infoButtonListener());
 
-		checkBox = new JCheckBox("Do Not Show This Welcome Window Again");		
-		frame.getContentPane().add(BorderLayout.CENTER, checkBox);
+		checkBox = new JCheckBox("Do Not Show This Welcome Window Again");
+		checkPanel.add(checkBox);		
+		textPanel.add(welcomeLabel);
+		frame.getContentPane().add(BorderLayout.EAST, infoButton);
+		frame.getContentPane().add(BorderLayout.CENTER, textPanel);
+		frame.getContentPane().add(BorderLayout.SOUTH, checkPanel);
 		checkBox.addActionListener(new CheckListener());
+		
+		
+		
 		frame.setVisible(true);	
 	}
 	// inside class that implements the ActionListener class to all the checkBox to give output file.
@@ -52,6 +69,26 @@ public class WelcomeWindow {
 				}
 			} else 
 			file.delete();
+		}
+	}
+	class infoButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			infoPanel = new JPanel();
+			welcomeButton = new JButton("<html>Welcome</html>");
+			infoPanel.setText("Heyyy");
+			
+			frame.getContentPane().remove(textPanel);
+			frame.getContentPane().remove(infoButton);
+			frame.getContentPane().add(BorderLayout.WEST, welcomeButton);
+			frame.getContentPane().add(BorderLayout.CENTER, infoPanel);
+		}
+	}
+	class welcomeButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			frame.getContentPane().remove(infoPanel);
+			frame.getContentPane().remove(welcomeButton);
+			frame.getContentPane().add(BorderLayout.EAST, infoButton);
+			frame.getContentPane().add(BorderLayout.CENTER, textPanel);
 		}
 	}
 }
