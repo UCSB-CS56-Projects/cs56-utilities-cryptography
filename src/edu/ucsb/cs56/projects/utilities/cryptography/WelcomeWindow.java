@@ -33,7 +33,6 @@ public class WelcomeWindow {
 		textPanel = new JPanel();
 		welcomeLabel = new JLabel();
 		infoButton = new JButton("<html>Input<br>Info</html>");
-		infoButton.addActionListener(new infoButtonListener());
 
 		checkBox = new JCheckBox("Do Not Show This Welcome Window Again");
 		checkPanel.add(checkBox);		
