@@ -31,7 +31,7 @@ public class WelcomeWindow {
 		
 		checkPanel = new JPanel();
 		textPanel = new JPanel();
-		welcomelabel = new JLabel();
+		welcomeLabel = new JLabel();
 		infoButton = new JButton("<html>Input<br>Info</html>");
 		infoButton.addActionListener(new infoButtonListener());
 
@@ -75,9 +75,11 @@ public class WelcomeWindow {
 	}
 	class infoButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event){
-			infoPanel = new JPanel();
+			infoLabel = new JLabel();
 			welcomeButton = new JButton("<html>Welcome</html>");
-			infoPanel.setText("Heyyy");
+			infoLabel.setText("Heyyy");
+			infoPanel.add(infoLabel);
+			
 			
 			frame.getContentPane().remove(textPanel);
 			frame.getContentPane().remove(infoButton);
