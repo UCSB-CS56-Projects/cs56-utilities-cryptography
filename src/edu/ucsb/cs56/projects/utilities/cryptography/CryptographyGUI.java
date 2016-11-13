@@ -16,9 +16,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import java.io.*;
 import java.util.ArrayList;
-import java.awt.datatransfer.*;
 import java.awt.Toolkit;
 import javax.swing.JTextArea;
+import javax.swing.filechooser.*;
+
 
 /**
    A class to implement the Cryptography GUI.
@@ -54,9 +55,9 @@ public class CryptographyGUI
 	ArrayList<String> storedMethod=new ArrayList<String>();
 
 	JFrame frame;
-	JButton shift, vigenere, affine, bifid, all, current, mode, info, copy, clean, allNewWindow;
-	JButton shiftRandom, affineRandom, vigenereRandom, bifidRandom, allRandom;
-	JPanel buttonPanel, cipherButtonPanel, modeButtonInfoPanel, textFieldPanel, inputTextPanel;
+        JButton shift, vigenere, affine, bifid, all, current, mode, info, copy, clean, allNewWindow;
+        JButton shiftRandom, affineRandom, vigenereRandom, bifidRandom, allRandom;
+        JPanel cipherButtonPanel, modeButtonInfoPanel, textFieldPanel, inputTextPanel;
 	JPanel outputTextPanel, inputKeyTextPanel,inputOutputPanel, cipherBoxPanel01, cipherBoxPanel02;
 	JPanel cipherBoxPanel03, cipherBoxPanel04,cipherBoxPanel05, EnandDnPanel;
 	JPanel keygenAreaPanel, labelAreaPanel, keyAreaPanel, exeAreaPanel;
@@ -65,6 +66,9 @@ public class CryptographyGUI
 	JLabel input,output,inputText, inputKeyText, outputText, ShLabel, AfLabel, ViLabel, BiLabel,AllLabel;
 	JLabel address,fileName;
 	JTextArea addressText,fileNameText;
+    
+    JButton save;
+    JPanel savePanel;
 	//JTextArea:
 	/*
     inputArea is the leftmost input box which sits in WEST (boxLayout)
@@ -88,10 +92,17 @@ public class CryptographyGUI
 	/** Calls the function to create the GUI.
 	@param args Default arguments sent to main.
 	 */
-	public static void main (String[] args) {
+	public static void main (String[] args) {		
 		CryptographyGUI cryptoGUI = new CryptographyGUI();
-
 		cryptoGUI.go();
+		
+		//checks to see if a welcomeWindow flag file exists. If the file exists, then the user had previously
+		//opted out of having a welcome window appear via a checkBox.
+		File f = new File("welcomeWin.txt");
+		if(!f.exists()) { 
+			WelcomeWindow welcWin = new WelcomeWindow();
+			welcWin.go();
+		}
 	}
 
 	/**    
@@ -228,6 +239,12 @@ public class CryptographyGUI
 		exeAreaPanel.setLayout(new GridBagLayout());
 		GridBagConstraints b = new GridBagConstraints();
 
+		//create the savePanel and config
+		savePanel = new JPanel();
+		savePanel.setLayout(new GridBagLayout());
+		GridBagConstraints s = new GridBagConstraints();
+
+
 		//put label, key input of Shift Cipher in the right place
 		ShLabel = new JLabel();
 		ShLabel.setText("Shift Cipher key: ");
@@ -300,6 +317,10 @@ public class CryptographyGUI
 		c.gridy = 3;
 		keyAreaPanel.add(new JScrollPane(BiKeyInput), c);
 
+		//Create Save Button and add listeners
+		save = new JButton("Choose Folder");
+		save.addActionListener((ExSave) -> new GUIActionMethod(this).SaveLocationGUI());
+		
 		allNewWindow = new JButton("All Cipher");
 		//lambda function for all ciphers
 		allNewWindow.addActionListener((AllCipherGUI) -> new GUIActionMethod(this).MakeAllCipherGUI());
@@ -352,6 +373,18 @@ public class CryptographyGUI
 		e.gridx = 0;
 		e.gridy = 3;
 		keygenAreaPanel.add(bifidRandom,e);
+		e.fill = GridBagConstraints.HORIZONTAL;
+		e.weightx = 0;
+		e.weighty = 1;
+		e.gridx = 0;
+		e.gridy = 4;
+
+                s.fill = GridBagConstraints.HORIZONTAL;
+		s.weightx = 0;
+		s.weighty = 0.6;
+		s.gridx = 0;
+		s.gridy = 0;
+		savePanel.add(save, s);
 
 		//make the affine key generator
 		//lambda expression to make the affine key generator		      
@@ -408,6 +441,14 @@ public class CryptographyGUI
 		exeAreaPanel.add(bifid,b);
 		cipherBoxPanel05.add(current);
 
+                // Put save folder button below input text
+                s.fill = GridBagConstraints.HORIZONTAL;
+                s.weightx = 0;
+                s.weighty = 0;
+                s.gridx = 0;
+                s.gridy = 0;
+                savePanel.add(save,s);
+
 		// create info button and adds listener
 		//make lambda expression or Info button
 		info = new JButton("Info");
@@ -435,6 +476,10 @@ public class CryptographyGUI
 		m.weighty = 0;
 		m.gridx = 0;
 		m.gridy = 6;
+
+		//add save button to input text panel
+		inputTextPanel.add(savePanel);
+		
 		// adds cipherBoxPanel05 panel to the end of keyAre Panel
 		keyAreaPanel.add(EnandDnPanel,c);
 		keyAreaPanel.add(cipherBoxPanel05,m);
@@ -459,3 +504,5 @@ public class CryptographyGUI
 		JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
 	}
 }
+
+
