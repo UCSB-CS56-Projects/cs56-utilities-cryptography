@@ -280,4 +280,13 @@ public class VigenereCipherTest {
 	VigenereCipher v = new VigenereCipher("k");
         v.decrypt(null);
     }
+    
+    /** Test generateKey 1*/
+    @Test
+    public void testGenerateKey(){
+    	VigenereCipher a=new VigenereCipher();
+    	a.generateKey();
+    	a.encrypt("abc");
+    	assertEquals(10,a.getCipherKey().length());
+    }
 }

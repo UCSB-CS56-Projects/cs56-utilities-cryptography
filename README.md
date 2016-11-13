@@ -1,5 +1,13 @@
 cs56-utilities-Cryptography
 ===========================
+Run the project by typing
+```
+ ant run
+```
+javadoc website: https://ucsb-cs56-m16.github.io/cs56_utilities_cryptography_javadoc/javadoc/index.html
+
+
+javadoc repo: https://github.com/UCSB-CS56-M16/cs56_utilities_cryptography_javadoc
 
 project history
 ===============
@@ -7,7 +15,7 @@ project history
  YES | mastergberry | Implementation of 3 different types of string ciphers, both encryption and decryption.
 ```
 
-Implementation of 3 different types of ciphers:
+Implementation of 4 different types of ciphers:
 	       -Shift Cipher
 	       -Affine Cipher
 	       -Vigenere Cipher
@@ -72,10 +80,48 @@ Shift Cipher:
 	Key text field should contain a single integer within the range of 0 to 25 inclusive.
 
 Affine Cipher:
-	Key text field should contain two integers seperated by a single space, with the first integer being with the range of 0 to 25 inclusive and the second integer being greater than 0. If decrypting, the additional condition that the first integer must not be a coprime with 26 also holds.
+	Key text field should contain two integers seperated by a single space, with the first integer being with the range of 0 to 25 inclusive and the second integer being greater than 0. If decrypting, the additional condition that the first integer must be a coprime with 26 also holds.
 
 Vigenere Cipher:
 	Key text field should contain a string of characters.
 	
 Bifid Cipher:
-	The Plaintext can have uppercase or lowercase letters and spaces but numbers will result in an error. The key has to have captial letters and no numbers. The key setter will parse out all non capital letters.
+	The Plaintext can have uppercase or lowercase letters and spaces but numbers will result in an error. The key has to have at least one captial letter and no numbers. The key setter will parse out all non capital letters.
+
+W16 final remarks:
+
+-Most of ciphers have not been changed and have only been implemented differently.
+
+-Now you can input more than one string with spaces in between.
+
+-You can now use all the ciphers at once to encrypt one string.
+
+-After each cipher, the program will write to a file called "output.txt"
+
+The program itself takes in an input string and input key to encrypt or decrypt the input string. Each encryption cipher has already been defined and most of the work will be in the Cryptography.java file. There is a lot of opportunity to refactor some of the JButton codes. 
+
+
+M16 final remarks:
+
+1. The methods of encryption and decryption have not been changed.
+2. Now, you can generate random keys.
+3. A new GUI has been added, which have one big input text area and output text area, four seperate key input areas.
+4. Now, you can look at the javadoc on website.
+5. The keys and ciphered text will be saved to a file, default named output.txt.
+6. You can decide where the output file will be saved
+7. The methods of anonymous ActionListener class are factored out to a class called GUIActionMethid.
+8. The lambda function has been used on implementing anonymous ActionListener.
+9. You get another window for all ciphers. The class AllCipherGUI is for that window.
+10. If you want to modify or add new function for each widget, for example, to edit error message, you may look at the GUIActionMethod class.
+11. If you want to add new widget or modify the GUI, you may look at the CryptographyGUI class or AllCipherGUI classes.
+12. If you want to edit or add algorithm for ciphers, you may look at the classes AffineCipher, ShiftCipher...
+
+
+
+
+
+
+
+
+
+

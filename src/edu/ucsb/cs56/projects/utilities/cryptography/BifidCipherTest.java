@@ -141,4 +141,12 @@ public class BifidCipherTest {
         s.setCipherKey(newCipherKey);
     }
 
+    /** Test generateKey 1*/
+    @Test
+    public void testGenerateKey(){
+    	BifidCipher a=new BifidCipher();
+    	a.generateKey();
+    	a.decrypt("abc");
+    	assertEquals(10,a.getCipherKey().length());
+    }
 }

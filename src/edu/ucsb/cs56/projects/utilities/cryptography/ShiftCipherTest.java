@@ -142,4 +142,14 @@ public class ShiftCipherTest{
 	s.setCipherKey(newCipherKey);
     }
     
+    /** Test generateKey 1*/
+    @Test
+    public void testGenerateKey(){
+    	ShiftCipher a=new ShiftCipher();
+    	a.generateKey();
+    	a.encrypt("abc");
+    	assertEquals(a.getCipherKey()<=25&&a.getCipherKey()>=0,true);
+
+    }
+    
 }
