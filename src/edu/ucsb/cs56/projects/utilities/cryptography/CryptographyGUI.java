@@ -97,7 +97,7 @@ public class CryptographyGUI
 		try {
 		    //here you can put the selected theme class name in JTattoo
 		    UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
-		    SwingUtilities.updateComponentTreeUI(frame);
+		    //SwingUtilities.updateComponentTreeUI(frame);
 		} catch (ClassNotFoundException ex) {
 		    //java.util.logging.Logger.getLogger(PC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
