@@ -1,6 +1,6 @@
 package edu.ucsb.cs56.projects.utilities.cryptography;
 
-import com.jtattoo.plaf.texture.TextureLookAndFeel;
+import com.jtattoo.plaf.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
