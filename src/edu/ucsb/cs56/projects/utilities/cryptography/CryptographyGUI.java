@@ -1,6 +1,6 @@
 package edu.ucsb.cs56.projects.utilities.cryptography;
 
-import com.jtattoo.plaf.texture.TextureLookAndFeel;
+import com.jtattoo*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -94,9 +94,10 @@ public class CryptographyGUI
 	@param args Default arguments sent to main.
 	 */
 	public static void main (String[] args) {
-		try {
+		UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
+		/*try {
 		    //here you can put the selected theme class name in JTattoo
-		    UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel");
+		    
 		    //SwingUtilities.updateComponentTreeUI(frame);
 		} catch (ClassNotFoundException ex) {
 		    //java.util.logging.Logger.getLogger(PC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -106,7 +107,7 @@ public class CryptographyGUI
 		    //java.util.logging.Logger.getLogger(PC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
 		    //java.util.logging.Logger.getLogger(PC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
+		}*/
 		
 		CryptographyGUI cryptoGUI = new CryptographyGUI();
 		cryptoGUI.go();
