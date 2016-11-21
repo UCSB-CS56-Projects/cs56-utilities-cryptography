@@ -31,8 +31,8 @@ import javax.swing.filechooser.*;
    @version Project CS56, M16, 07/26/2016
  */
 
-public class CryptographyGUI
-{
+public class CryptographyGUI {
+    
 	ShiftCipher shiftCipher = null;
 	AffineCipher affineCipher = null;
 	VigenereCipher vigenereCipher = null;
@@ -41,7 +41,7 @@ public class CryptographyGUI
 	String plainText = null;
 	String cipherText = null;
 	String newLine = System.getProperty("line.separator");
-	int shiftKey, keyA, keyB, affineKeyA, affineKeyB, last;
+    int shiftKey, keyA, keyB, affineKeyA, affineKeyB, last, rsaKeyA, rsaKeyB;
 	String key;
 	String[] inputs;
 	String[] decryptInputs;
@@ -55,20 +55,19 @@ public class CryptographyGUI
 	ArrayList<String> storedMethod=new ArrayList<String>();
 
 	JFrame frame;
-        JButton shift, vigenere, affine, bifid, all, current, mode, info, copy, clean, allNewWindow;
-        JButton shiftRandom, affineRandom, vigenereRandom, bifidRandom, allRandom;
-        JPanel cipherButtonPanel, modeButtonInfoPanel, textFieldPanel, inputTextPanel;
-	JPanel outputTextPanel, inputKeyTextPanel,inputOutputPanel, cipherBoxPanel01, cipherBoxPanel02;
+    JButton shift, vigenere, affine, bifid, current, mode, info, copy, clean, allNewWindow, rsaWindow, save, readFile;
+    JButton shiftRandom, affineRandom, vigenereRandom, bifidRandom, allRandom, rsaRandom;
+    JPanel cipherButtonPanel, modeButtonInfoPanel, textFieldPanel, inputTextPanel;
+    JPanel outputTextPanel, inputKeyTextPanel,inputOutputPanel, cipherBoxPanel01, cipherBoxPanel02, savePanel;
 	JPanel cipherBoxPanel03, cipherBoxPanel04,cipherBoxPanel05, EnandDnPanel;
 	JPanel keygenAreaPanel, labelAreaPanel, keyAreaPanel, exeAreaPanel;
 	JTextField keyInput;
-	JTextArea inputArea,outputArea,ShKeyInput,AfKeyInput,ViKeyInput,BiKeyInput,AllKeyInput;
-	JLabel input,output,inputText, inputKeyText, outputText, ShLabel, AfLabel, ViLabel, BiLabel,AllLabel;
+    JTextArea inputArea,outputArea,ShKeyInput,AfKeyInput,ViKeyInput,BiKeyInput,AllKeyInput, RsaKeyInput;
+    JLabel input,output,inputText, inputKeyText, outputText, ShLabel, AfLabel, ViLabel, BiLabel,AllLabel,RsaLabel;
 	JLabel address,fileName;
 	JTextArea addressText,fileNameText;
-    
-    JButton save;
-    JPanel savePanel;
+    File inputFile;
+
 	//JTextArea:
 	/*
     inputArea is the leftmost input box which sits in WEST (boxLayout)
@@ -102,33 +101,6 @@ public class CryptographyGUI
 		if(!f.exists()) { 
 			WelcomeWindow welcWin = new WelcomeWindow();
 			welcWin.go();
-		}
-	}
-
-	/**    
-	 *function to read the file
-	 */
-	public void readFile(){
-		// Open the file
-		try{
-			FileInputStream fstream = new FileInputStream("output.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-
-			String strLine;
-
-			//Read File Line By Line
-			while ((strLine = br.readLine()) != null)   {
-				String[] buffer=strLine.split(",");
-				storedMethod.add(buffer[0]);
-				storedKey.add(buffer[1]);
-				storedOutput.add(buffer[2]);
-			}
-
-			//Close the input stream
-			br.close();
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
 		}
 	}
 
@@ -317,13 +289,19 @@ public class CryptographyGUI
 		c.gridy = 3;
 		keyAreaPanel.add(new JScrollPane(BiKeyInput), c);
 
-		//Create Save Button and add listeners
+		//Create Save Button and add listener
 		save = new JButton("Choose Folder");
 		save.addActionListener((ExSave) -> new GUIActionMethod(this).SaveLocationGUI());
+		readFile = new JButton("Choose Input File");
+		readFile.addActionListener((ReadFile) -> new GUIActionMethod(this).ReadFile());
 		
 		allNewWindow = new JButton("All Cipher");
 		//lambda function for all ciphers
 		allNewWindow.addActionListener((AllCipherGUI) -> new GUIActionMethod(this).MakeAllCipherGUI());
+
+		//create RSA button and add listener
+		rsaWindow = new JButton("RSA Window");
+		rsaWindow.addActionListener((RSAWindow) -> new GUIActionMethod(this).MakeRSACipherGUI());
 
 		// create cipher buttons and add listeners
 		shift = new JButton("Execute SHIFT");
@@ -350,6 +328,7 @@ public class CryptographyGUI
 		vigenereRandom=new JButton("keyGen");
 		bifidRandom=new JButton("keyGen");
 		allRandom = new JButton("keyGen");
+		rsaRandom = new JButton("keyGen");
 		e.weightx = 0;
 		e.weighty = 0.6;
 		e.gridx = 0;
@@ -385,6 +364,12 @@ public class CryptographyGUI
 		s.gridx = 0;
 		s.gridy = 0;
 		savePanel.add(save, s);
+		s.fill = GridBagConstraints.HORIZONTAL;
+		s.weightx = 0;
+		s.weighty = 0.5;
+		s.gridx = 0;
+		s.gridy = 1;
+		savePanel.add(readFile,s);
 
 		//make the affine key generator
 		//lambda expression to make the affine key generator		      
@@ -405,6 +390,9 @@ public class CryptographyGUI
 		//generate all cipher random key generator
 		//generate lambda expression for all cipher random key generator
 		allRandom.addActionListener((AlRam) ->new GUIActionMethod(this).AllGenKey());
+		//generate rsa cipher random key generator
+		//lambda expression for rsa random key generator
+		rsaRandom.addActionListener((RsaRam) -> new GUIActionMethod(this).RSAGenKey());
 
 		//cipherBoxPanel05 actually holds buttons like current, switch, info
 		cipherBoxPanel05 = new JPanel();
@@ -441,14 +429,6 @@ public class CryptographyGUI
 		exeAreaPanel.add(bifid,b);
 		cipherBoxPanel05.add(current);
 
-                // Put save folder button below input text
-                s.fill = GridBagConstraints.HORIZONTAL;
-                s.weightx = 0;
-                s.weighty = 0;
-                s.gridx = 0;
-                s.gridy = 0;
-                savePanel.add(save,s);
-
 		// create info button and adds listener
 		//make lambda expression or Info button
 		info = new JButton("Info");
@@ -469,6 +449,7 @@ public class CryptographyGUI
 		cipherBoxPanel05.add(info);
 		cipherBoxPanel05.add(copy);
 		cipherBoxPanel05.add(clean);
+		cipherBoxPanel05.add(rsaWindow);
 
 		GridBagConstraints m = new GridBagConstraints();
 		m.fill = GridBagConstraints.HORIZONTAL;

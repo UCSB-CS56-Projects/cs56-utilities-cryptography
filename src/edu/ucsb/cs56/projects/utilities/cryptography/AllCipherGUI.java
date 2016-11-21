@@ -52,9 +52,9 @@ public class AllCipherGUI
 
 	JFrame frame;
 	JButton  all, current, mode, info, copy, clean, allRandom;
-	JPanel buttonPanel, cipherButtonPanel, modeButtonInfoPanel, textFieldPanel, inputTextPanel;
-	JPanel outputTextPanel, inputKeyTextPanel,inputOutputPanel, cipherBoxPanel01, cipherBoxPanel02;
-	JPanel cipherBoxPanel03, cipherBoxPanel04,cipherBoxPanel05, EnandDnPanel;
+	JPanel textFieldPanel, inputTextPanel;
+	JPanel outputTextPanel, inputKeyTextPanel,inputOutputPanel;
+	JPanel cipherBoxPanel05, EnandDnPanel;
 	JPanel keygenAreaPanel, labelAreaPanel, keyAreaPanel, exeAreaPanel, keyAreaPanel_New, exeAreaPanel_New;
 	JTextField keyInput;
 	JTextArea inputArea,outputArea,AllKeyInput;
@@ -82,30 +82,6 @@ public class AllCipherGUI
 	}
 
 	boolean encryptMode = true;
-
-	/**    
-	 *function to read the file
-	 */
-	public void readFile(){
-		// Open the file
-		try{
-			FileInputStream fstream = new FileInputStream("output.txt");
-			BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
-			String strLine;
-			//Read File Line By Line
-			while ((strLine = br.readLine()) != null)   {
-				String[] buffer=strLine.split(",");
-				storedMethod.add(buffer[0]);
-				storedKey.add(buffer[1]);
-				storedOutput.add(buffer[2]);
-			}
-			//Close the input stream
-			br.close();
-		}
-		catch(Exception ex){
-			ex.printStackTrace();
-		}
-	}
 
 	/** Function that populates and creates the GUI.
 	 */

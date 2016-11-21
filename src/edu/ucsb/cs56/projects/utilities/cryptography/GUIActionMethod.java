@@ -21,6 +21,7 @@ public class GUIActionMethod {
 	CryptographyGUI GUI; 
 	//enable to change the state of the original GUI
 	AllCipherGUI allGUI;
+        RSACipherGUI rsaGUI;
 
 	public GUIActionMethod(CryptographyGUI GUI){
 		this.GUI=GUI;
@@ -30,6 +31,11 @@ public class GUIActionMethod {
 		this.GUI=GUI;
 		this.allGUI=allGUI;
 	}
+
+        public GUIActionMethod(CryptographyGUI GUI, RSACipherGUI rsaGUI){
+	        this.GUI = GUI;
+	        this.rsaGUI = rsaGUI;
+        }
 	
 	
 	//  Check whether in decryption mode or encryption mode	
@@ -241,6 +247,75 @@ public class GUIActionMethod {
 					"to be thrown", "Vigenere Cipher Input Error");}
 	}
 
+    public void ExecuteRSACipher() {
+	if((rsaGUI.RsaKeyInput.getText().equals(null)||rsaGUI.RsaKeyInput.getText().length()==0)&&!GUI.encryptMode){
+	    for (int j=0;j<rsaGUI.storedKey.size();++j){
+		if(GUI.storedMethod.get(j).equals("rsa")&&GUI.storedOutput.get(j).equals(rsaGUI.inputArea.getText())){
+		    rsaGUI.rsaKeyA=Integer.parseInt(rsaGUI.storedKey.get(j).split(" ")[0]);
+		    rsaGUI.rsaKeyB=Integer.parseInt(rsaGUI.storedKey.get(j).split(" ")[1]);
+		    rsaGUI.rsaCipher.setRsaKeyA(rsaGUI.rsaKeyA);
+		    rsaGUI.rsaCipher.setRsaKeyB(rsaGUI.rsaKeyB);
+		    rsaGUI.RsaKeyInput.setText(Integer.toString(rsaGUI.rsaKeyA)+" "+rsaGUI.rsaKeyB);
+		}
+	    }
+	}
+
+	// get text from plaintext text field
+	rsaGUI.plainText = rsaGUI.inputArea.getText();
+	rsaGUI.inputs = rsaGUI.plainText.split("\\s+");
+	// gets keys from key text field and sets as the keys in cipher object
+	try {
+	    rsaGUI.key = rsaGUI.RsaKeyInput.getText();
+	    rsaGUI.rsaKeyA = Integer.parseInt(rsaGUI.key.substring(0, rsaGUI.key.indexOf(' ')));
+	    rsaGUI.rsaKeyB = Integer.parseInt(rsaGUI.key.substring(rsaGUI.key.indexOf(' ') + 1));
+	    rsaGUI.rsaCipher.setRsaKeyA(rsaGUI.rsaKeyA);
+	    rsaGUI.rsaCipher.setRsaKeyB(rsaGUI.rsaKeyB);
+	    rsaGUI.cipherText = "";
+
+	    // checks if encrypting or decrypting
+	    for(int i = 0; i < rsaGUI.inputs.length; i++) {
+		if (GUI.encryptMode)
+		    rsaGUI.cipherText += rsaGUI.rsaCipher.encrypt(rsaGUI.inputs[i]);
+		else {
+		    rsaGUI.cipherText += rsaGUI.rsaCipher.decrypt(rsaGUI.inputs[i]);}
+		if(i < rsaGUI.inputs.length - 1)
+		    rsaGUI.cipherText += " ";
+	    }
+	    //Write the file
+
+	    //Write the file to directory
+	    try {
+		if(GUI.addressText.getText().length()>0){
+		    File saveLocation = new File(GUI.addressText.getText());
+		    if(!saveLocation.exists()){
+			saveLocation.mkdir();
+		    }
+		    File myFile = new File(GUI.addressText.getText(), GUI.fileNameText.getText());
+		    PrintWriter textFileWriter = new PrintWriter(new FileWriter(myFile,true));
+		    textFileWriter.println("rsa,"+rsaGUI.RsaKeyInput.getText()+","+rsaGUI.cipherText);
+		    textFileWriter.close();
+		}else{PrintWriter out = new PrintWriter(new FileWriter(GUI.fileNameText.getText(),true));
+		    out.println("rsa,"+rsaGUI.RsaKeyInput.getText()+","+rsaGUI.cipherText);
+		    out.close();}
+		rsaGUI.outputArea.setText(rsaGUI.cipherText);
+	    }
+	    catch (Exception ex){
+		ex.printStackTrace();
+	    }
+
+	    // puts result in the output label
+	    rsaGUI.outputArea.setText(rsaGUI.cipherText);
+	    //   GUI.cipherText=this.cipherText;
+
+	    GUI.last=1;
+	} catch (Exception ex) {
+	    // create popup
+	    rsaGUI.messagePopUp("Incorrect input for RSA Cipher.\nPlaintext " +
+			     "input is a String without non-alphabetic characters.\nKey takes 2 integers " +
+			     "(a and b) both being two different large prime numbers.\n",
+			     "Affine Cipher Input Error");
+	}
+    }
 	
 	//encrypt/decrypt using bifid cipher	 
 	public void ExecuteBifid(){
@@ -308,6 +383,26 @@ public class GUIActionMethod {
 		}
 	}
 
+    //generate random key of RSA cipher
+    public void RSAGenKey(){
+	// get text from plaintext text field
+	rsaGUI.plainText = rsaGUI.inputArea.getText();
+	rsaGUI.inputs = rsaGUI.plainText.split("\\s+");
+	rsaGUI.rsaCipher.generateKey();
+	rsaGUI.rsaKeyA = rsaGUI.rsaCipher.getRsaKeyA();
+	rsaGUI.rsaKeyB = rsaGUI.rsaCipher.getRsaKeyB();
+	rsaGUI.cipherText = "";
+	try{
+	    //check if in decryption mode
+	    checkMode();
+	}catch(Exception ex){
+	    ex.printStackTrace();
+	    return;
+	}
+
+	// put the random key to the key bar
+	rsaGUI.RsaKeyInput.setText(rsaGUI.rsaKeyA+" "+rsaGUI.rsaKeyB);
+    }
 	
 	 // generate random key of affine cipher	 
 	public void AffineGenKey(){
@@ -370,7 +465,6 @@ public class GUIActionMethod {
 		// put the random key to the key bar
 		GUI.ShKeyInput.setText(Integer.toString(GUI.shiftKey));
 	}
-
 	
 	 //generate random key of vigenere cipher	 
 	public void VigenereGenKey(){
@@ -579,44 +673,44 @@ public class GUIActionMethod {
 				GUI.bifidCipher.setCipherKey(GUI.key);}
 			//Adds all encryption/decryption to output string
 			if(GUI.last == 0) {
-				for(int i = 0; i < GUI.inputs.length; i++) {
-					if (GUI.encryptMode)
-						currentCipher += GUI.shiftCipher.encrypt(GUI.inputs[i]);
-					else
-						currentCipher += GUI.shiftCipher.decrypt(GUI.inputs[i]);
-					if(i < GUI.inputs.length - 1)
-						currentCipher += " ";
-				}
+			    for(int i = 0; i < GUI.inputs.length; i++) {
+				if (GUI.encryptMode)
+				    currentCipher += GUI.shiftCipher.encrypt(GUI.inputs[i]);
+				else
+				    currentCipher += GUI.shiftCipher.decrypt(GUI.inputs[i]);
+				if(i < GUI.inputs.length - 1)
+				    currentCipher += " ";
+			    }
 			}
 			if(GUI.last == 1) {
-				for(int i = 0; i < GUI.inputs.length; i++) {		
-					if (GUI.encryptMode)
-						currentCipher += GUI.affineCipher.encrypt(GUI.inputs[i]);
-					else
-						currentCipher += GUI.affineCipher.decrypt(GUI.inputs[i]);
-					if(i < GUI.inputs.length - 1)
-						currentCipher += " ";
-				}
+			    for(int i = 0; i < GUI.inputs.length; i++) {		
+				if (GUI.encryptMode)
+				    currentCipher += GUI.affineCipher.encrypt(GUI.inputs[i]);
+				else
+				    currentCipher += GUI.affineCipher.decrypt(GUI.inputs[i]);
+				if(i < GUI.inputs.length - 1)
+				    currentCipher += " ";
+			    }
 			}
 			if(GUI.last == 2) {
-				for(int i = 0; i < GUI.inputs.length; i++) {		
-					if (GUI.encryptMode)
-						currentCipher += GUI.vigenereCipher.encrypt(GUI.inputs[i]);
-					else
-						currentCipher += GUI.vigenereCipher.decrypt(GUI.inputs[i]);
-					if(i < GUI.inputs.length - 1)
-						currentCipher += " ";
-				}
+			    for(int i = 0; i < GUI.inputs.length; i++) {		
+				if (GUI.encryptMode)
+				    currentCipher += GUI.vigenereCipher.encrypt(GUI.inputs[i]);
+				else
+				    currentCipher += GUI.vigenereCipher.decrypt(GUI.inputs[i]);
+				if(i < GUI.inputs.length - 1)
+				    currentCipher += " ";
+			    }
 			}
 			if(GUI.last == 3) {
-				for(int i = 0; i < GUI.inputs.length; i++) {		
-					if (GUI.encryptMode)
-						currentCipher += GUI.bifidCipher.encrypt(GUI.inputs[i]);
-					else
-						currentCipher +=GUI. bifidCipher.decrypt(GUI.inputs[i]);
-					if(i < GUI.inputs.length - 1)
-						currentCipher += " ";
-				}
+			    for(int i = 0; i < GUI.inputs.length; i++) {		
+				if (GUI.encryptMode)
+				    currentCipher += GUI.bifidCipher.encrypt(GUI.inputs[i]);
+				else
+				    currentCipher +=GUI. bifidCipher.decrypt(GUI.inputs[i]);
+				if(i < GUI.inputs.length - 1)
+				    currentCipher += " ";
+			    }
 			}
 			try {
 				PrintWriter out = new PrintWriter("output.txt");
@@ -646,7 +740,7 @@ public class GUIActionMethod {
 			// create popup
 
 			GUI.messagePopUp("Please do not change input fields to decrypt " +
-					" or encrypt current cipher text.", "Curent Cipher Error");
+					" or encrypt current cipher text.", "Current Cipher Error");
 		}
 
 	}
@@ -736,6 +830,11 @@ public class GUIActionMethod {
 
 	}
 
+        public void MakeRSACipherGUI(){
+	        RSACipherGUI rsacipherGUI = new RSACipherGUI(GUI);
+                rsacipherGUI.createFrame();
+    }
+
         public void SaveLocationGUI(){
 	        JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new java.io.File("."));
@@ -748,4 +847,31 @@ public class GUIActionMethod {
 		}
     }
 
+    public void ReadFile(){
+	String line = null;
+	JFileChooser chooser = new JFileChooser();
+	chooser.setDialogTitle("Choose File");
+	chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+	if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+	    GUI.inputFile = chooser.getSelectedFile();
+	} else {
+	    System.out.println("No Selection ");
+	}
+
+	try{
+	    FileReader fileReader = new FileReader(GUI.inputFile);
+	    BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+	    while((line = bufferedReader.readLine()) != null){
+		GUI.inputArea.append(line);
+	    }
+	    bufferedReader.close();
+
+	}catch(FileNotFoundException ex){
+	    GUI.messagePopUp("Error reading file","File Error");
+	}catch(IOException ex) {
+	    GUI.messagePopUp("Error reading file","File Error");
+	}
+    }
 }
+
