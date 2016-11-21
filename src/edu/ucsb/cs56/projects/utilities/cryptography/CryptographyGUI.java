@@ -97,7 +97,7 @@ public class CryptographyGUI
 		
 		try {
 		    // select Look and Feel
-		    UIManager.setLookAndFeel("com.jtattoo.plaf.Noire.NoireLookAndFeel");
+		    UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
 		    CryptographyGUI cryptoGUI = new CryptographyGUI();
 		    cryptoGUI.go();
 		}
