@@ -94,11 +94,11 @@ public class CryptographyGUI
 	@param args Default arguments sent to main.
 	 */
 	public static void main (String[] args) {
-		CryptographyGUI cryptoGUI = new CryptographyGUI();
-		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-		/*try {
+		
+		
+		try {
 		    //here you can put the selected theme class name in JTattoo
-		    
+		    UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		    //SwingUtilities.updateComponentTreeUI(frame);
 		} catch (ClassNotFoundException ex) {
 		    //java.util.logging.Logger.getLogger(PC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -108,9 +108,9 @@ public class CryptographyGUI
 		    //java.util.logging.Logger.getLogger(PC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
 		    //java.util.logging.Logger.getLogger(PC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}*/
+		}
 		
-		
+		CryptographyGUI cryptoGUI = new CryptographyGUI();
 		cryptoGUI.go();
 	}
 
