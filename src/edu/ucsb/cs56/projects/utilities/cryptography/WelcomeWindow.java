@@ -123,7 +123,7 @@ public class WelcomeWindow {
 	// inside class that implements the ActionListener class to all the checkBox to give output file.
 	class CheckListener implements ActionListener{
 		public void actionPerformed(ActionEvent event){
-			File file = new File("WelcomeWin.txt"); 
+			File file = new File("welcomeWin.txt"); 
 			//tests to see if the checkbox is selected then decides to either create
 			// or delete the welcomeWindow.txt file
 			if (checkBox.isSelected()){
