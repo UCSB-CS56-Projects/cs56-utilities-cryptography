@@ -20,12 +20,14 @@
 	   destdir="build"
 	   includeantruntime="false"
 	   debug="true"
+	   classpathref="project.class.path"
 	   debuglevel="lines,vars,source">
       <classpath refid="project.class.path" />
     </javac>
   </target>
   
   <target name="run" depends="compile" description="Run the project">
+	  
     <java classname="edu.ucsb.cs56.projects.utilities.cryptography.CryptographyGUI" classpath="build" fork="true"/>
   </target>
   
