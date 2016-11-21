@@ -95,7 +95,7 @@ public class CryptographyGUI
 	 */
 	public static void main (String[] args) {
 		CryptographyGUI cryptoGUI = new CryptographyGUI();
-		UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		/*try {
 		    //here you can put the selected theme class name in JTattoo
 		    
