@@ -95,10 +95,10 @@ public class CryptographyGUI
 	 */
 	public static void main (String[] args) {
 		
-		
+		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		try {
 		    //here you can put the selected theme class name in JTattoo
-		    UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		    
 		    //SwingUtilities.updateComponentTreeUI(frame);
 		} catch (ClassNotFoundException ex) {
 		    //java.util.logging.Logger.getLogger(PC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
