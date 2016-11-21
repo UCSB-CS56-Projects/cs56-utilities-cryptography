@@ -18,9 +18,9 @@
     <mkdir dir="build" />
     <javac srcdir="src"
 	   destdir="build"
-	   classpathref="project.class.path"
-	   includeantruntime="false">
-	   
+	   includeantruntime="false"
+	   debug="true"	   
+	   debuglevel="lines,vars,source">
       <classpath refid="project.class.path" />
     </javac>
   </target>
