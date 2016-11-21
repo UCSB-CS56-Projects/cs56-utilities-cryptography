@@ -95,23 +95,17 @@ public class CryptographyGUI
 	 */
 	public static void main (String[] args) {
 		
-		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		try {
-		    //here you can put the selected theme class name in JTattoo
-		    
-		    //SwingUtilities.updateComponentTreeUI(frame);
-		} catch (ClassNotFoundException ex) {
-		    //java.util.logging.Logger.getLogger(PC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-		    //java.util.logging.Logger.getLogger(PC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-		    //java.util.logging.Logger.getLogger(PC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-		    //java.util.logging.Logger.getLogger(PC.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		    // select Look and Feel
+		    UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+		    CryptographyGUI cryptoGUI = new CryptographyGUI();
+		    cryptoGUI.go();
 		}
+		catch (Exception ex) {
+		    ex.printStackTrace();
+       		}
 		
-		CryptographyGUI cryptoGUI = new CryptographyGUI();
-		cryptoGUI.go();
+		
 	}
 
 	/**    
