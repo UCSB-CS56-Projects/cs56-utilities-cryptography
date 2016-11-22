@@ -48,7 +48,7 @@ public class WelcomeWindow {
 		welcomeLabel = new JLabel();
 		infoButton = new JButton("<html>Input<br>Info<br><font size=+2>&gt;</font></html>");
 		welcomeButton = new JButton("<html><br><font size=+2> &lt; </font></html>");
-		picButton = new JButton("<html><br><font size=+2> Picture Explanation; </font></html>");
+		picButton = new JButton("<html><br><font size=+1> Picture Explanation </font></html>");
 		
 		infoButton.addActionListener(new infoButtonListener());
 		welcomeButton.addActionListener(new welcomeButtonListener());
