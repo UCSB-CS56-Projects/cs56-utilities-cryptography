@@ -75,10 +75,11 @@ public class WelcomeWindow {
 		frame.getContentPane().add(BorderLayout.SOUTH, checkPanel);
 		checkBox.addActionListener(new CheckListener());
 		
-		//JLabel imgLabel = new JLabel(new ImageIcon("lib/enc.jpg"));
-		BufferedImage myPicture = ImageIO.read(new File("lib/enc.jpg"));
+		JLabel imgLabel = new JLabel(new ImageIcon("lib/enc.jpg"));
+		/*BufferedImage myPicture = ImageIO.read(new File("lib/enc.jpg"));
 		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
 		frame.getContentPane().add(picLabel);
+		*/
 		
 		frame.setVisible(true);	
 	}
