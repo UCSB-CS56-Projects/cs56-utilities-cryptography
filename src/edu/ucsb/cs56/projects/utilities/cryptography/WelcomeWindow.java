@@ -17,6 +17,7 @@ package edu.ucsb.cs56.projects.utilities.cryptography;
 
 	import java.awt.Graphics;
 	import java.awt.image.BufferedImage;
+	import javax.swing.ImageIcon;
 	import java.util.logging.Level;
 	import java.util.logging.Logger;
 	import javax.imageio.ImageIO;
