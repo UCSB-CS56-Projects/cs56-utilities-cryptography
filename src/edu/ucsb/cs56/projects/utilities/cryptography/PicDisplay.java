@@ -16,7 +16,7 @@ public class PicDisplay{
     
     public void go(){
       frame = new JFrame();
-      frame.setSize(1000,900);
+      frame.setSize(1400,700);
       frame.setTitle("");
       frame.setLocationRelativeTo(null) ;
       frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
