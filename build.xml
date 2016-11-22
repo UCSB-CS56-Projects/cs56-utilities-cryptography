@@ -28,7 +28,9 @@
   
   <target name="run" depends="compile" description="Run the project">
 	  
-    <java classname="edu.ucsb.cs56.projects.utilities.cryptography.CryptographyGUI" classpath="build" fork="true"/>
+    <java classname="edu.ucsb.cs56.projects.utilities.cryptography.CryptographyGUI" 
+	  classpathref="project.class.path"
+	  classpath="build" fork="true"/>
   </target>
   
   <target name="clean" description="delete unnecessary files and directories">
