@@ -15,11 +15,18 @@ package edu.ucsb.cs56.projects.utilities.cryptography;
 	import javax.swing.JCheckBox;
 	import javax.swing.JButton;
 
+	import java.awt.Graphics;
+	import java.awt.image.BufferedImage;
+	import javax.swing.ImageIcon;
+	import java.util.logging.Level;
+	import java.util.logging.Logger;
+	import javax.imageio.ImageIO;
+
 public class WelcomeWindow {		
 	JFrame frame;
 	JCheckBox checkBox;
 	JLabel welcomeLabel, infoLabel;
-	JButton welcomeButton, infoButton;
+	JButton welcomeButton, infoButton, picButton;
 	JPanel checkPanel, textPanel, infoPanel;
 	
 	/* uncomment for testing purposes
@@ -41,9 +48,11 @@ public class WelcomeWindow {
 		welcomeLabel = new JLabel();
 		infoButton = new JButton("<html>Input<br>Info<br><font size=+2>&gt;</font></html>");
 		welcomeButton = new JButton("<html><br><font size=+2> &lt; </font></html>");
+		picButton = new JButton("<html><br><font size=+1> Picture Explanation </font></html>");
 		
 		infoButton.addActionListener(new infoButtonListener());
 		welcomeButton.addActionListener(new welcomeButtonListener());
+		picButton.addActionListener(new picButtonListener());
 		welcomeLabel.setText("<html><b><u><font size=+2>Welcome to this Cryptography "
 				+ "Cipher </font></u></b><font size=+1><br> &nbsp This consists of 4 ciphers"
 				+ "<font size=-1><br><br>  &emsp -Shift Cipher: Takes an integer a as the key. "
@@ -62,14 +71,14 @@ public class WelcomeWindow {
 
 		checkBox = new JCheckBox("Do Not Show This Welcome Window Again");
 		checkPanel.add(checkBox);		
-		textPanel.add(welcomeLabel);
+		textPanel.add(welcomeLabel);	
+		textPanel.add(picButton);
+		
 		frame.getContentPane().add(BorderLayout.EAST, infoButton);
 		frame.getContentPane().add(BorderLayout.CENTER, textPanel);
 		frame.getContentPane().add(BorderLayout.SOUTH, checkPanel);
-		checkBox.addActionListener(new CheckListener());
-		
-		
-		
+		checkBox.addActionListener(new CheckListener());	
+
 		frame.setVisible(true);	
 	}
 	class infoButtonListener implements ActionListener{
@@ -100,10 +109,13 @@ public class WelcomeWindow {
 					+ "using <br>commas with no spaces before or after the comma.<br><br> "
 					+ "Copy:<br>Copies the output text into clipboard, use ctrl + v to paste.<br><br> "
 					+ "Clean:<br> Hit clean to clean all the text fields.<br> </html>");
+			textPanel.remove(picButton);
 			textPanel.remove(welcomeLabel);
 			textPanel.add(new JScrollPane(infoLabel));
 			textPanel.add(infoLabel);
+			textPanel.add(picButton);
 			
+			//frame.getContentPane().remove(imgLabel);
 			frame.getContentPane().remove(infoButton);
 			frame.getContentPane().add(BorderLayout.WEST, welcomeButton);
 			frame.getContentPane().revalidate();
@@ -111,7 +123,9 @@ public class WelcomeWindow {
 	}
 	class welcomeButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event){
-			textPanel.add(welcomeLabel);
+			textPanel.remove(picButton);
+			textPanel.add(welcomeLabel);			
+			textPanel.add(picButton);
 			infoLabel.setText("");
 
 			frame.getContentPane().remove(welcomeButton);
@@ -120,6 +134,12 @@ public class WelcomeWindow {
 			frame.getContentPane().add(BorderLayout.CENTER, textPanel);
 		}
 	}	
+	class picButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			PicDisplay picDis = new PicDisplay();
+			picDis.go();
+		}
+	}
 	// inside class that implements the ActionListener class to all the checkBox to give output file.
 	class CheckListener implements ActionListener{
 		public void actionPerformed(ActionEvent event){
