@@ -71,12 +71,11 @@ public class WelcomeWindow {
 
 		checkBox = new JCheckBox("Do Not Show This Welcome Window Again");
 		checkPanel.add(checkBox);		
-		textPanel.add(welcomeLabel);		
+		textPanel.add(welcomeLabel);	
+		textPanel.add(picButton);
 		
 		frame.getContentPane().add(BorderLayout.EAST, infoButton);
 		frame.getContentPane().add(BorderLayout.CENTER, textPanel);
-		// pop up class picture frame
-		frame.getContentPane().add(BorderLayout.CENTER, picButton);
 		frame.getContentPane().add(BorderLayout.SOUTH, checkPanel);
 		checkBox.addActionListener(new CheckListener());	
 
