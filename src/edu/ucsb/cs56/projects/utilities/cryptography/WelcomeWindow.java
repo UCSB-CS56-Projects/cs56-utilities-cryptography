@@ -52,6 +52,7 @@ public class WelcomeWindow {
 		
 		infoButton.addActionListener(new infoButtonListener());
 		welcomeButton.addActionListener(new welcomeButtonListener());
+		picButton.addActionListener(new picButtonListener());
 		welcomeLabel.setText("<html><b><u><font size=+2>Welcome to this Cryptography "
 				+ "Cipher </font></u></b><font size=+1><br> &nbsp This consists of 4 ciphers"
 				+ "<font size=-1><br><br>  &emsp -Shift Cipher: Takes an integer a as the key. "
@@ -133,6 +134,7 @@ public class WelcomeWindow {
 	class picButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event){
 			PicDisplay picDis = new PicDisplay();
+			picDis.go();
 		}
 	}
 	// inside class that implements the ActionListener class to all the checkBox to give output file.
