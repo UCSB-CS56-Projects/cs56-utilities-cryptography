@@ -1,5 +1,6 @@
 package edu.ucsb.cs56.projects.utilities.cryptography;
 
+import com.jtattoo.plaf.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -91,7 +92,14 @@ public class CryptographyGUI {
     /** Calls the function to create the GUI.
 	@param args Default arguments sent to main.
     */
-    public static void main (String[] args) {		
+    public static void main (String[] args) {	
+	    try {
+		    // select Look and Feel
+		    UIManager.setLookAndFeel("com.jtattoo.plaf.noire.NoireLookAndFeel");
+		}
+		catch (Exception ex) {
+		    ex.printStackTrace();
+		}
 	CryptographyGUI cryptoGUI = new CryptographyGUI();
 	cryptoGUI.go();
 		
