@@ -70,13 +70,16 @@ public class WelcomeWindow {
 		checkBox = new JCheckBox("Do Not Show This Welcome Window Again");
 		checkPanel.add(checkBox);		
 		textPanel.add(welcomeLabel);
+		//pictures
+		JLabel imgLabel = new JLabel(new ImageIcon("lib/enc.jpg"));
+		textPanel.add(imgLabel);
 		frame.getContentPane().add(BorderLayout.EAST, infoButton);
 		frame.getContentPane().add(BorderLayout.CENTER, textPanel);
 		frame.getContentPane().add(BorderLayout.SOUTH, checkPanel);
 		checkBox.addActionListener(new CheckListener());
 		
-		JLabel imgLabel = new JLabel(new ImageIcon("lib/enc.jpg"));
-		frame.getContentPane().add(BorderLayout.SOUTH,imgLabel);
+
+		
 
 		frame.setVisible(true);	
 	}
