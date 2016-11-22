@@ -68,6 +68,7 @@ public class WelcomeWindow {
 		frame.getContentPane().add(BorderLayout.SOUTH, checkPanel);
 		checkBox.addActionListener(new CheckListener());
 		
+		JLabel imgLabel = new JLabel(new ImageIcon("lib/enc.jpg"));
 		
 		
 		frame.setVisible(true);	
