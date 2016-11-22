@@ -77,11 +77,7 @@ public class WelcomeWindow {
 		
 		JLabel imgLabel = new JLabel(new ImageIcon("lib/enc.jpg"));
 		frame.getContentPane().add(BorderLayout.SOUTH,imgLabel);
-		/*BufferedImage myPicture = ImageIO.read(new File("lib/enc.jpg"));
-		JLabel picLabel = new JLabel(new ImageIcon(myPicture));
-		frame.getContentPane().add(picLabel);
-		*/
-		
+
 		frame.setVisible(true);	
 	}
 	class infoButtonListener implements ActionListener{
@@ -116,6 +112,7 @@ public class WelcomeWindow {
 			textPanel.add(new JScrollPane(infoLabel));
 			textPanel.add(infoLabel);
 			
+			frame.getContentPane().remove(imgLabel);
 			frame.getContentPane().remove(infoButton);
 			frame.getContentPane().add(BorderLayout.WEST, welcomeButton);
 			frame.getContentPane().revalidate();
