@@ -15,6 +15,12 @@ package edu.ucsb.cs56.projects.utilities.cryptography;
 	import javax.swing.JCheckBox;
 	import javax.swing.JButton;
 
+	import java.awt.Graphics;
+	import java.awt.image.BufferedImage;
+	import java.util.logging.Level;
+	import java.util.logging.Logger;
+	import javax.imageio.ImageIO;
+
 public class WelcomeWindow {		
 	JFrame frame;
 	JCheckBox checkBox;
