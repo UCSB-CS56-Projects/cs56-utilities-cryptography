@@ -9,6 +9,7 @@
   
   <path id="project.class.path">
     <pathelement location="build"/>
+    <pathelement location="lib/JTattoo-1.6.11.jar"/>
     <pathelement location="lib/junit-4.8.2.jar"/>
   </path>
   
@@ -20,13 +21,17 @@
 	   destdir="build"
 	   includeantruntime="false"
 	   debug="true"
+	   classpathref="project.class.path"
 	   debuglevel="lines,vars,source">
       <classpath refid="project.class.path" />
     </javac>
   </target>
   
   <target name="run" depends="compile" description="Run the project">
-    <java classname="edu.ucsb.cs56.projects.utilities.cryptography.CryptographyGUI" classpath="build" fork="true"/>
+	  
+    <java classname="edu.ucsb.cs56.projects.utilities.cryptography.CryptographyGUI" 
+	  classpathref="project.class.path"
+	  classpath="build" fork="true"/>
   </target>
   
   <target name="clean" description="delete unnecessary files and directories">
