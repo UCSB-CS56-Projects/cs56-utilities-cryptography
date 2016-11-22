@@ -109,9 +109,11 @@ public class WelcomeWindow {
 					+ "using <br>commas with no spaces before or after the comma.<br><br> "
 					+ "Copy:<br>Copies the output text into clipboard, use ctrl + v to paste.<br><br> "
 					+ "Clean:<br> Hit clean to clean all the text fields.<br> </html>");
+			textPanel.remove(picButton);
 			textPanel.remove(welcomeLabel);
 			textPanel.add(new JScrollPane(infoLabel));
 			textPanel.add(infoLabel);
+			textPanel.add(picButton);
 			
 			//frame.getContentPane().remove(imgLabel);
 			frame.getContentPane().remove(infoButton);
@@ -121,7 +123,9 @@ public class WelcomeWindow {
 	}
 	class welcomeButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent event){
-			textPanel.add(welcomeLabel);
+			textPanel.remove(picButton);
+			textPanel.add(welcomeLabel);			
+			textPanel.add(picButton);
 			infoLabel.setText("");
 
 			frame.getContentPane().remove(welcomeButton);
