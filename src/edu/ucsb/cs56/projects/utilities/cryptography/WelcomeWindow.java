@@ -26,7 +26,7 @@ public class WelcomeWindow {
 	JFrame frame;
 	JCheckBox checkBox;
 	JLabel welcomeLabel, infoLabel;
-	JButton welcomeButton, infoButton;
+	JButton welcomeButton, infoButton, picButton;
 	JPanel checkPanel, textPanel, infoPanel;
 	
 	/* uncomment for testing purposes
@@ -48,6 +48,7 @@ public class WelcomeWindow {
 		welcomeLabel = new JLabel();
 		infoButton = new JButton("<html>Input<br>Info<br><font size=+2>&gt;</font></html>");
 		welcomeButton = new JButton("<html><br><font size=+2> &lt; </font></html>");
+		picButton = new JButton("<html><br><font size=+2> Picture Explanation; </font></html>");
 		
 		infoButton.addActionListener(new infoButtonListener());
 		welcomeButton.addActionListener(new welcomeButtonListener());
@@ -69,17 +70,14 @@ public class WelcomeWindow {
 
 		checkBox = new JCheckBox("Do Not Show This Welcome Window Again");
 		checkPanel.add(checkBox);		
-		textPanel.add(welcomeLabel);
-		//pictures
-		JLabel imgLabel = new JLabel(new ImageIcon("lib/enc.jpg"));
-		textPanel.add(imgLabel);
+		textPanel.add(welcomeLabel);		
+		
 		frame.getContentPane().add(BorderLayout.EAST, infoButton);
 		frame.getContentPane().add(BorderLayout.CENTER, textPanel);
+		// pop up class picture frame
+		frame.getContentPane().add(BorderLayout.CENTER, picButton);
 		frame.getContentPane().add(BorderLayout.SOUTH, checkPanel);
-		checkBox.addActionListener(new CheckListener());
-		
-
-		
+		checkBox.addActionListener(new CheckListener());	
 
 		frame.setVisible(true);	
 	}
@@ -132,6 +130,11 @@ public class WelcomeWindow {
 			frame.getContentPane().add(BorderLayout.CENTER, textPanel);
 		}
 	}	
+	class picButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			PicDisplay picDis = new PicDisplay();
+		}
+	}
 	// inside class that implements the ActionListener class to all the checkBox to give output file.
 	class CheckListener implements ActionListener{
 		public void actionPerformed(ActionEvent event){
