@@ -112,7 +112,7 @@ public class WelcomeWindow {
 			textPanel.add(new JScrollPane(infoLabel));
 			textPanel.add(infoLabel);
 			
-			frame.getContentPane().remove(imgLabel);
+			//frame.getContentPane().remove(imgLabel);
 			frame.getContentPane().remove(infoButton);
 			frame.getContentPane().add(BorderLayout.WEST, welcomeButton);
 			frame.getContentPane().revalidate();
