@@ -10,17 +10,17 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 
 public class PicDisplay{
-    JFrame frame;
-		JLabel imgLabel;
+      JFrame frame;
+      JLabel imgLabel;
     
     public void go(){
       frame = new JFrame();
       frame.setSize(800,700);
-      frame.setTitle("Welcome");
+      frame.setTitle("");
       frame.setLocationRelativeTo(null) ;
       frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-      imgLabel = new JLabel(new ImageIcon("lib/enc.jpg"));
-		  frame.getContentPane().add(imgLabel);      
+      imgLabel = new JLabel(new ImageIcon("lib/GUI.jpg"));
+      frame.getContentPane().add(imgLabel);      
       frame.setVisible(true);
     }
 }
