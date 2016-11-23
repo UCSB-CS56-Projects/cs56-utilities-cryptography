@@ -100,6 +100,8 @@ W16 final remarks:
 
 The program itself takes in an input string and input key to encrypt or decrypt the input string. Each encryption cipher has already been defined and most of the work will be in the Cryptography.java file. There is a lot of opportunity to refactor some of the JButton codes. 
 
+
+This is the picture included in welcome window and is a pictorial demonstration of general usage of application. 
 ![alt tag](https://github.com/keithlo/cs56-utilities-cryptography/blob/master/lib/GUI.jpg)
 
 
