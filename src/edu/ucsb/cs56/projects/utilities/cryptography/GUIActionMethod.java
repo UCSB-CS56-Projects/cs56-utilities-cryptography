@@ -107,10 +107,20 @@ public class GUIActionMethod {
 	    
 	} catch (Exception ex) {
 	    // create popup
-	    GUI.messagePopUp("Incorrect input for Shift Cipher.\nPlaintext is " +
+	    //special cipher key popup
+	    if (!(GUI.shiftKey > 0 && GUI.shiftKey <= 25)){
+
+	    	GUI.messagePopUp("Key should contain a single integer within " +
+			     "the range 0 to 25.", "Shift Cipher Input Error");
+	    }
+	    else{
+	    	GUI.messagePopUp("Incorrect input for Shift Cipher.\nPlaintext is " +
 			     "a string and can't have non-alphabetic " +
 			     "characters.\nKey should contain a single integer within " +
-			     "the range 0 to 25.\n", "Shift Cipher Input Error");}
+			     "the range 0 to 25.\n", "Shift Cipher Input Error");
+	    }
+	    
+		}
     }
 
 	
@@ -176,12 +186,22 @@ public class GUIActionMethod {
 	    
 	} catch (Exception ex) {
 	    // create popup
-	    GUI.messagePopUp("Incorrect input for Affine Cipher.\nPlaintext " +
+	    //specific to the key error
+	    if (!(GUI.keyA > 0 && GUI.keyA <= 25) || GUI.keyB > 0){
+	    	GUI.messagePopUp("Key takes 2 integers " +
+			     "(a and b) separated by a single space the first \ninteger " +
+			     "being within the range 0 to 25 and the second greater than 0.\n" +
+			     "If Decrypting, the first integer must be a coprime with 26",
+			     "Affine Cipher Input Error");
+	    }
+	    else {
+	    	GUI.messagePopUp("Incorrect input for Affine Cipher.\nPlaintext " +
 			     "input is a String without non-alphabetic characters.\nKey takes 2 integers " +
 			     "(a and b) separated by a single space the first \ninteger " +
 			     "being within the range 0 to 25 and the second greater than 0.\n" +
 			     "If Decrypting, the first integer must be a coprime with 26",
 			     "Affine Cipher Input Error");
+	    }	    
 	}
     }
 
@@ -241,10 +261,18 @@ public class GUIActionMethod {
 	    
 	} catch (Exception ex) {
 	    // create popup
-	    GUI.messagePopUp("Incorrect input for Vigenere Cipher.\nPlaintext " +
+	    //
+	    if (!GUI.key.equals("a")){
+	    	GUI.messagePopUp("Key is a String with " +
+			     "only letters.\nNumbers will cause an exception " +
+			     "to be thrown", "Vigenere Cipher Input Error");
+	    }
+	    else {
+	    	GUI.messagePopUp("Incorrect input for Vigenere Cipher.\nPlaintext " +
 			     "is a String with only letters.\nKey is a String with " +
 			     "only letters.\nNumbers will cause an exception " +
 			     "to be thrown", "Vigenere Cipher Input Error");
+	    }	    
 	}
     }
 
@@ -372,12 +400,22 @@ public class GUIActionMethod {
 	    
 	} catch (Exception ex) {
 	    // create popup
-	    GUI.messagePopUp("Incorrect input for Bifid Cipher.\nPlaintext " +
+	    //specific key failure message
+	    if (!GUI.key.equals("a")){
+	    	GUI.messagePopUp("Key " +
+			     "input can be any String with at least one uppercase letter " +
+			     "as well as no numbers.\nAll non-alphabetic characters will " +
+			     "be deleted from the String.",
+			     "Bifid Cipher Input Error");
+	    }
+	    else {
+	    	GUI.messagePopUp("Incorrect input for Bifid Cipher.\nPlaintext " +
 			     "input can be any String so long as there are no numbers.\nKey " +
 			     "input can be any String with at least one uppercase letter " +
 			     "as well as no numbers.\nAll non-alphabetic characters will " +
 			     "be deleted from the String.",
 			     "Bifid Cipher Input Error");
+	    }	    
 	}
     }
 
