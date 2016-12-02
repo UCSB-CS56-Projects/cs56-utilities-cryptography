@@ -12,14 +12,15 @@ javadoc repo: https://github.com/UCSB-CS56-M16/cs56_utilities_cryptography_javad
 project history
 ===============
 ```
- YES | mastergberry | Implementation of 3 different types of string ciphers, both encryption and decryption.
+ YES | mastergberry | Implementation of 5 different types of string ciphers, both encryption and decryption.
 ```
 
-Implementation of 4 different types of ciphers:
+Implementation of 5 different types of ciphers:
 	       -Shift Cipher
 	       -Affine Cipher
 	       -Vigenere Cipher
 	       -Bifid Cipher
+	       -RSA Cipher
 
 Shift Cipher:
       Takes an integer a as the key.
@@ -71,6 +72,11 @@ Bifid Cipher:
 	
 	step 4:      f f y h m  k h y c p  l i a s h  a d t r l  h c c h l  b l r
 
+RSA Cipher:
+	Two keys are automatically generated.
+	Encrypts plaintext using an RSA Algorithm. First the public key is used for encryption then the private key is used for decryption.
+	
+
 Format of Input for GUI:
 
 General:
@@ -87,6 +93,10 @@ Vigenere Cipher:
 	
 Bifid Cipher:
 	The Plaintext can have uppercase or lowercase letters and spaces but numbers will result in an error. The key has to have at least one captial letter and no numbers. The key setter will parse out all non capital letters.
+
+RSA Cipher:
+	The plaintext can have any letters uppercase or lowercase, but no numbers or symbols. The key must be generated automatically because they must be different large prime numbers.
+
 
 W16 final remarks:
 
@@ -122,10 +132,15 @@ M16 final remarks:
 
 
 
+F16 final remarks:
 
-
-
-
-
-
-
+- Bifid cipher has special cases for the letters I and J
+- Added RSA Encryption window
+- GUI has been updated with a new look and feel
+- You can now choose your save folder from a pop up
+- You an choose an input file to put into the plain text window
+- A welcome window has been added
+- Added a picture explanation in the README.md file
+- Added a few comments in the code for clarity
+- Added specific error messages
+- Tip: Follow the methods that are called when a button in the GUI is pressed to get an understanding of how the classes interact with each other.
