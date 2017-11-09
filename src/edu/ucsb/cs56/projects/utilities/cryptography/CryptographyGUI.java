@@ -58,7 +58,7 @@ public class CryptographyGUI {
     ArrayList<String> storedMethod=new ArrayList<String>();
 
     JFrame frame;
-    JButton shift, vigenere, affine, bifid, current, mode, info, copy, clean, allNewWindow, rsaWindow, save, readFile;
+    JButton shift, vigenere, affine, bifid, current, mode, info, copy, clean, allNewWindow, rsaWindow, save, readFile, tutorial;
     JButton shiftRandom, affineRandom, vigenereRandom, bifidRandom, allRandom, rsaRandom;
     JPanel cipherButtonPanel, modeButtonInfoPanel, textFieldPanel, inputTextPanel;
     JPanel outputTextPanel, inputKeyTextPanel,inputOutputPanel, cipherBoxPanel01, cipherBoxPanel02, savePanel;
@@ -326,6 +326,14 @@ public class CryptographyGUI {
 	bifid = new JButton("Execute BIFID");
 	bifid.addActionListener((ExBi)->new GUIActionMethod(this).ExecuteBifid());
 
+	tutorial = new JButton("Tutorial");
+	tutorial.addActionListener(new ActionListener(){
+		public void actionPerformed(ActionEvent e){
+			PicDisplay disp = new PicDisplay();
+			disp.go();
+		}
+	});
+
 	//create random key generator panel, add buttons
 	keygenAreaPanel=new JPanel();
 	keygenAreaPanel.setLayout(new GridBagLayout());
@@ -435,6 +443,8 @@ public class CryptographyGUI {
 	exeAreaPanel.add(bifid,b);
 	cipherBoxPanel05.add(current);
 
+
+
 	// create info button and adds listener
 	//make lambda expression or Info button
 	info = new JButton("Info");
@@ -451,6 +461,7 @@ public class CryptographyGUI {
 	cipherBoxPanel05.add(copy);
 	cipherBoxPanel05.add(clean);
 	cipherBoxPanel05.add(rsaWindow);
+	cipherBoxPanel05.add(tutorial);
 
 	//add save button to input text panel
 	inputTextPanel.add(savePanel);
