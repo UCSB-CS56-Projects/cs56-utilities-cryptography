@@ -151,7 +151,7 @@ public class CryptographyGUI {
 
 	//setup overall frame options
 	frame = new JFrame();
-	frame.setSize(1280,680);
+	frame.setSize(1500,680);
 	frame.setTitle("Cryptography Interface");
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setResizable(false);
