@@ -71,6 +71,9 @@ public class CryptographyGUI {
     JTextArea addressText,fileNameText;
     File inputFile;
 
+
+    JPanel cipherPanel;
+
     //JTextArea:
     /*
       inputArea is the leftmost input box which sits in WEST (boxLayout)
@@ -196,28 +199,36 @@ public class CryptographyGUI {
 
 	// create panel holds labelAreaPanel, keyAreaPanel, keygenAreaPanel, exeAreaPanel
 	inputKeyTextPanel = new JPanel();
-	inputKeyTextPanel.setLayout(new BoxLayout(inputKeyTextPanel, BoxLayout.X_AXIS));
+	inputKeyTextPanel.setLayout(new BoxLayout(inputKeyTextPanel, BoxLayout.Y_AXIS));
 	inputKeyText = new JLabel();
 
-	//create the labelAreaPanel and config
-	labelAreaPanel = new JPanel();
-	labelAreaPanel.setLayout(new GridBagLayout());
-	GridBagConstraints a = new GridBagConstraints();
+	
+	GridBagLayout gbl= new GridBagLayout();
+	cipherPanel = new JPanel();
+	cipherPanel.setLayout(gbl);
+	GridBagConstraints constraints = new GridBagConstraints();
+	final int CIPHER_COUNT = 4;
 
-	//create the keyAreaPanel and config
-	keyAreaPanel = new JPanel();
-	keyAreaPanel.setLayout(new GridBagLayout());
-	GridBagConstraints c = new GridBagConstraints();
 
-	//create the keygenAreaPanel and config
-	keygenAreaPanel = new JPanel();
-	keygenAreaPanel.setLayout(new GridBagLayout());
-	GridBagConstraints e = new GridBagConstraints();
+	// //create the labelAreaPanel and config
+	// labelAreaPanel = new JPanel();
+	// labelAreaPanel.setLayout(new GridBagLayout());
+	// GridBagConstraints a = new GridBagConstraints();
 
-	//create the exeAreaPanel and config 
-	exeAreaPanel = new JPanel();
-	exeAreaPanel.setLayout(new GridBagLayout());
-	GridBagConstraints b = new GridBagConstraints();
+	// //create the keyAreaPanel and config
+	// keyAreaPanel = new JPanel();
+	// keyAreaPanel.setLayout(new GridBagLayout());
+	// GridBagConstraints c = new GridBagConstraints();
+
+	// //create the keygenAreaPanel and config
+	// keygenAreaPanel = new JPanel();
+	// keygenAreaPanel.setLayout(new GridBagLayout());
+	// GridBagConstraints e = new GridBagConstraints();
+
+	// //create the exeAreaPanel and config 
+	// exeAreaPanel = new JPanel();
+	// exeAreaPanel.setLayout(new GridBagLayout());
+	// GridBagConstraints b = new GridBagConstraints();
 
 	//create the savePanel and config
 	savePanel = new JPanel();
@@ -225,77 +236,173 @@ public class CryptographyGUI {
 	GridBagConstraints s = new GridBagConstraints();
 
 	
-	//put label, key input of Shift Cipher in the right place
+	//define Labels
+	
 	ShLabel = new JLabel();
 	ShLabel.setText("Shift Cipher key: ");
-	ShKeyInput = new JTextArea(2,15);
-	a.fill = GridBagConstraints.HORIZONTAL;
-	a.weightx = 0;
-	a.weighty = 0.6;
-	a.gridx = 0;
-	a.gridy = 0;
-	labelAreaPanel.add(ShLabel, a);
-	c.fill = GridBagConstraints.HORIZONTAL;
-	c.weightx = 0;
-	c.weighty = 2;
-	c.gridx = 0;
-	c.gridy = 0;
-	keyAreaPanel.add(new JScrollPane(ShKeyInput), c);
-
-	//put label, key input of Affine Cipher in the right place
 	AfLabel = new JLabel();
 	AfLabel.setText("Affine Cipher key: ");
-	AfKeyInput = new JTextArea(2,15);
-	a.fill = GridBagConstraints.HORIZONTAL;
-	a.weightx = 0;
-	a.weighty = 0.5;
-	a.gridx = 0;
-	a.gridy = 1;
-	labelAreaPanel.add(AfLabel, a);
-	c.fill = GridBagConstraints.HORIZONTAL;
-	c.weightx = 0;
-	c.weighty = 2;
-	c.gridx = 0;
-	c.gridy = 1;
-	keyAreaPanel.add(new JScrollPane(AfKeyInput), c);
-	
-	//put label, key input of Vigenere Cipher in the right place
 	ViLabel = new JLabel();
 	ViLabel.setText("Vigenere Cipher key: ");
-	ViKeyInput = new JTextArea("",10,20);
-	ViKeyInput.setLineWrap(true);
-	ViKeyInput.setWrapStyleWord(true);
-	a.fill = GridBagConstraints.HORIZONTAL;
-	a.weightx = 0;
-	a.weighty = 2;
-	a.gridx = 0;
-	a.gridy = 2;
-	labelAreaPanel.add(ViLabel, a);
-	c.fill = GridBagConstraints.HORIZONTAL;
-	c.weightx = 0;
-	c.weighty = 2;
-	c.gridx = 0;
-	c.gridy = 2;
-	keyAreaPanel.add(new JScrollPane(ViKeyInput), c);
-
-	//put label, key input of Bifid Cipher in the right place
 	BiLabel = new JLabel();
 	BiLabel.setText("Bifid Cipher key: ");
-	BiKeyInput = new JTextArea("",10,20);
+	ArrayList<JLabel> cipherLabels = new ArrayList<JLabel>(){{
+		add(ShLabel);
+		add(AfLabel);
+		add(ViLabel);
+		add(BiLabel);
+	}};
+	//define TextAreas
+	
+	ShKeyInput = new JTextArea(2,15);
+	AfKeyInput = new JTextArea(2,15);
+	ViKeyInput = new JTextArea("",2,15);
+	ViKeyInput.setLineWrap(true);
+	ViKeyInput.setWrapStyleWord(true);
+	BiKeyInput = new JTextArea("",2,15);
 	BiKeyInput.setLineWrap(true);
 	BiKeyInput.setWrapStyleWord(true);
-	a.fill = GridBagConstraints.HORIZONTAL;
-	a.weightx = 0;
-	a.weighty = 2;
-	a.gridx = 0;
-	a.gridy = 3;
-	labelAreaPanel.add(BiLabel,a);
-	c.fill = GridBagConstraints.HORIZONTAL;
-	c.weightx = 0;
-	c.weighty = 2;
-	c.gridx = 0;
-	c.gridy = 3;
-	keyAreaPanel.add(new JScrollPane(BiKeyInput), c);
+	ArrayList<JTextArea> cipherTextAreas = new ArrayList<JTextArea>(){{
+		add(ShKeyInput);
+		add(AfKeyInput);
+		add(ViKeyInput);
+		add(BiKeyInput);
+	}};
+
+	
+	shiftRandom = new JButton("keyGen");
+	affineRandom = new JButton("keyGen");
+	vigenereRandom = new JButton("keyGen");
+	bifidRandom = new JButton("keyGen");
+
+	affineRandom.addActionListener((AfRam)->new GUIActionMethod(this).AffineGenKey());
+	bifidRandom.addActionListener((BiRam) -> new GUIActionMethod(this).BifidGenKey());
+	shiftRandom.addActionListener((ShRam) ->new GUIActionMethod(this).ShiftGenKey());
+	vigenereRandom.addActionListener((ViRam) -> new GUIActionMethod(this).VigenereGenKey());
+
+	ArrayList<JButton> keyGenButtons = new ArrayList<JButton>(){{
+		add(shiftRandom);
+		add(affineRandom);
+		add(vigenereRandom);
+		add(bifidRandom);
+	}};
+
+	//create cipher buttons and add listeners
+	shift = new JButton("Execute SHIFT");
+	shift.addActionListener((ExShift) -> new GUIActionMethod(this).ExecuteShift());
+
+	affine = new JButton("Execute AFFINE");
+	affine.addActionListener((ExAffine) -> new GUIActionMethod(this).ExecuteAffine());
+
+	vigenere = new JButton("Execute VIGENERE");
+	vigenere.addActionListener((ExVi)->new GUIActionMethod(this).ExecuteVigenere());
+
+	bifid = new JButton("Execute BIFID");
+	bifid.addActionListener((ExBi)->new GUIActionMethod(this).ExecuteBifid());
+
+	ArrayList<JButton> executeButtons = new ArrayList<JButton>(){{
+		add(shift);
+		add(affine);
+		add(vigenere);
+		add(bifid);
+	}};
+
+	for(int i = 0; i < CIPHER_COUNT; i++){
+		//label
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		constraints.gridx = 0;
+		constraints.gridy = i;
+		constraints.weightx = 0.2;
+		constraints.weighty = 1/CIPHER_COUNT;
+		cipherPanel.add(cipherLabels.get(i), constraints);
+
+		//textarea
+		// constraints.fill = GridBagConstraints.BOTH;
+		constraints.gridx = 1;
+		constraints.weightx = 0.6;
+		cipherPanel.add(new JScrollPane(cipherTextAreas.get(i)), constraints);
+
+		//keyGen Buttons
+		constraints.gridx = 2;
+		constraints.weightx = 0.1;
+		cipherPanel.add(keyGenButtons.get(i), constraints);
+
+		//exec Buttons
+		constraints.gridx = 3;
+		constraints.weightx = 0.1;
+		cipherPanel.add(executeButtons.get(i), constraints);
+	}
+
+
+
+	
+	
+	// cipherPanel.add(ShLabel, constraints);
+
+	// constraints.gridx = 1;
+	// constraints.weightx = 0.6;
+	// cipherPanel.add(new JScrollPane(ShKeyInput), constraints);
+
+
+
+
+	// a.fill = GridBagConstraints.HORIZONTAL;
+	// a.weightx = 0;
+	// a.weighty = 0.6;
+	// a.gridx = 0;
+	// a.gridy = 0;
+	// labelAreaPanel.add(ShLabel, a);
+	// c.fill = GridBagConstraints.BOTH;
+	// c.weightx = 0;
+	// c.weighty = 2;
+	// c.gridx = 0;
+	// c.gridy = 0;
+	// keyAreaPanel.add(new JScrollPane(ShKeyInput), c);
+
+	//put label, key input of Affine Cipher in the right place
+	
+	// a.fill = GridBagConstraints.HORIZONTAL;
+	// a.weightx = 0;
+	// a.weighty = 0.5;
+	// a.gridx = 0;
+	// a.gridy = 1;
+	// labelAreaPanel.add(AfLabel, a);
+	// c.fill = GridBagConstraints.BOTH;
+	// c.weightx = 0;
+	// c.weighty = 2;
+	// c.gridx = 0;
+	// c.gridy = 1;
+	// keyAreaPanel.add(new JScrollPane(AfKeyInput), c);
+	
+	//put label, key input of Vigenere Cipher in the right place
+	
+	// a.fill = GridBagConstraints.HORIZONTAL;
+	// a.weightx = 0;
+	// a.weighty = 2;
+	// a.gridx = 0;
+	// a.gridy = 2;
+	// labelAreaPanel.add(ViLabel, a);
+	// c.fill = GridBagConstraints.BOTH;
+	// c.weightx = 0;
+	// c.weighty = 2;
+	// c.gridx = 0;
+	// c.gridy = 2;
+	// keyAreaPanel.add(new JScrollPane(ViKeyInput), c);
+
+	//put label, key input of Bifid Cipher in the right place
+	
+	// a.fill = GridBagConstraints.HORIZONTAL;
+	// a.weightx = 0;
+	// a.weighty = 2;
+	// a.gridx = 0;
+	// a.gridy = 3;
+	// labelAreaPanel.add(BiLabel,a);
+	// c.fill = GridBagConstraints.BOTH;
+	// c.weightx = 0;
+	// c.weighty = 2;
+	// c.gridx = 0;
+	// c.gridy = 3;
+	// keyAreaPanel.add(new JScrollPane(BiKeyInput), c);
 	
 	//Create Save Button and add listener
 	save = new JButton("Choose Folder");
@@ -313,18 +420,6 @@ public class CryptographyGUI {
 	rsaWindow = new JButton("RSA Window");
 	rsaWindow.addActionListener((RSAWindow) -> new GUIActionMethod(this).MakeRSACipherGUI());
 
-	//create cipher buttons and add listeners
-	shift = new JButton("Execute SHIFT");
-	shift.addActionListener((ExShift) -> new GUIActionMethod(this).ExecuteShift());
-
-	affine = new JButton("Execute AFFINE");
-	affine.addActionListener((ExAffine) -> new GUIActionMethod(this).ExecuteAffine());
-
-	vigenere = new JButton("Execute VIGENERE");
-	vigenere.addActionListener((ExVi)->new GUIActionMethod(this).ExecuteVigenere());
-
-	bifid = new JButton("Execute BIFID");
-	bifid.addActionListener((ExBi)->new GUIActionMethod(this).ExecuteBifid());
 
 	tutorial = new JButton("Tutorial");
 	tutorial.addActionListener(new ActionListener(){
@@ -335,48 +430,43 @@ public class CryptographyGUI {
 	});
 
 	//create random key generator panel, add buttons
-	keygenAreaPanel=new JPanel();
-	keygenAreaPanel.setLayout(new GridBagLayout());
+	// keygenAreaPanel=new JPanel();
+	// keygenAreaPanel.setLayout(new GridBagLayout());
 
-	shiftRandom=new JButton("keyGen");
-	affineRandom=new JButton("keyGen");
-	vigenereRandom=new JButton("keyGen");
-	bifidRandom=new JButton("keyGen");
-	allRandom = new JButton("keyGen");
-	rsaRandom = new JButton("keyGen");
 	
-	e.weightx = 0;
-	e.weighty = 0.6;
-	e.gridx = 0;
-	e.gridy = 0;
-	keygenAreaPanel.add(shiftRandom,e);
+	
+	// e.weightx = 0;
+	// e.weighty = 0.6;
+	// e.gridx = 0;
+	// e.gridy = 0;
+	// keygenAreaPanel.add(shiftRandom,e);
 
-	e.fill = GridBagConstraints.HORIZONTAL;
-	e.weightx = 0;
-	e.weighty = 0.5;
-	e.gridx = 0;
-	e.gridy = 1;
-	keygenAreaPanel.add(affineRandom,e);
+	// e.fill = GridBagConstraints.HORIZONTAL;
+	// e.weightx = 0;
+	// e.weighty = 0.5;
+	// e.gridx = 0;
+	// e.gridy = 1;
+	// keygenAreaPanel.add(affineRandom,e);
 
-	e.fill = GridBagConstraints.HORIZONTAL;
-	e.weightx = 0;
-	e.weighty = 2;
-	e.gridx = 0;
-	e.gridy = 2;
-	keygenAreaPanel.add(vigenereRandom,e);
+	// e.fill = GridBagConstraints.HORIZONTAL;
+	// e.weightx = 0;
+	// e.weighty = 2;
+	// e.gridx = 0;
+	// e.gridy = 2;
+	// keygenAreaPanel.add(vigenereRandom,e);
 
-	e.fill = GridBagConstraints.HORIZONTAL;
-	e.weightx = 0;
-	e.weighty = 2.5;
-	e.gridx = 0;
-	e.gridy = 3;
-	keygenAreaPanel.add(bifidRandom,e);
+	// e.fill = GridBagConstraints.HORIZONTAL;
+	// e.weightx = 0;
+	// e.weighty = 2.5;
+	// e.gridx = 0;
+	// e.gridy = 3;
+	// keygenAreaPanel.add(bifidRandom,e);
 
-	e.fill = GridBagConstraints.HORIZONTAL;
-	e.weightx = 0;
-	e.weighty = 1;
-	e.gridx = 0;
-	e.gridy = 4;
+	// e.fill = GridBagConstraints.HORIZONTAL;
+	// e.weightx = 0;
+	// e.weighty = 1;
+	// e.gridx = 0;
+	// e.gridy = 4;
 	
 	s.fill = GridBagConstraints.HORIZONTAL;
 	s.weightx = 0;
@@ -393,18 +483,11 @@ public class CryptographyGUI {
 	savePanel.add(readFile,s);
 
 	//make cipher key gen buttons		      
-	affineRandom.addActionListener((AfRam)->new GUIActionMethod(this).AffineGenKey());
-
-	bifidRandom.addActionListener((BiRam) -> new GUIActionMethod(this).BifidGenKey());
 	
-	shiftRandom.addActionListener((ShRam) ->new GUIActionMethod(this).ShiftGenKey());
-
-	vigenereRandom.addActionListener((ViRam) -> new GUIActionMethod(this).VigenereGenKey());
-
+	allRandom = new JButton("keyGen");
+	rsaRandom = new JButton("keyGen");
 	allRandom.addActionListener((AlRam) ->new GUIActionMethod(this).AllGenKey());
-
 	rsaRandom.addActionListener((RsaRam) -> new GUIActionMethod(this).RSAGenKey());
-
 	//cipherBoxPanel05 actually holds buttons like current, switch, info
 	cipherBoxPanel05 = new JPanel();
 	cipherBoxPanel05.setLayout(new BoxLayout(cipherBoxPanel05, BoxLayout.X_AXIS));
@@ -414,34 +497,35 @@ public class CryptographyGUI {
 	current.addActionListener((ExCurrent) -> new GUIActionMethod(this).ExecuteCurrent());
 
 	//put all buttons in exeAreaPanel
-	b.fill = GridBagConstraints.HORIZONTAL;
-	b.weightx = 0;
-	b.weighty = 0.6;
-	b.gridx = 0;
-	b.gridy = 0;
-	exeAreaPanel.add(shift,b);
+	// b.fill = GridBagConstraints.HORIZONTAL;
+	// b.weightx = 0;
+	// b.weighty = 0.6;
+	// b.gridx = 0;
+	// b.gridy = 0;
+	// exeAreaPanel.add(shift,b);
 
-	b.fill = GridBagConstraints.HORIZONTAL;
-	b.weightx = 0;
-	b.weighty = 0.5;
-	b.gridx = 0;
-	b.gridy = 1;
-	exeAreaPanel.add(affine,b);
+	// b.fill = GridBagConstraints.HORIZONTAL;
+	// b.weightx = 0;
+	// b.weighty = 0.5;
+	// b.gridx = 0;
+	// b.gridy = 1;
+	// exeAreaPanel.add(affine,b);
 
-	b.fill = GridBagConstraints.HORIZONTAL;
-	b.weightx = 0;
-	b.weighty = 2;
-	b.gridx = 0;
-	b.gridy = 2;
-	exeAreaPanel.add(vigenere,b);
+	// b.fill = GridBagConstraints.HORIZONTAL;
+	// b.weightx = 0;
+	// b.weighty = 2;
+	// b.gridx = 0;
+	// b.gridy = 2;
+	// exeAreaPanel.add(vigenere,b);
 
-	b.fill = GridBagConstraints.HORIZONTAL;
-	b.weightx = 0;
-	b.weighty = 2.5;
-	b.gridx = 0;
-	b.gridy = 3;
-	exeAreaPanel.add(bifid,b);
-	cipherBoxPanel05.add(current);
+	// b.fill = GridBagConstraints.HORIZONTAL;
+	// b.weightx = 0;
+	// b.weighty = 2.5;
+	// b.gridx = 0;
+	// b.gridy = 3;
+	// exeAreaPanel.add(bifid,b);
+
+	
 
 
 
@@ -457,6 +541,7 @@ public class CryptographyGUI {
 	EnandDnPanel.add(modeButton02);
 	EnandDnPanel.add(allNewWindow);
 
+	cipherBoxPanel05.add(current);
 	cipherBoxPanel05.add(info);
 	cipherBoxPanel05.add(copy);
 	cipherBoxPanel05.add(clean);
@@ -466,28 +551,33 @@ public class CryptographyGUI {
 	//add save button to input text panel
 	inputTextPanel.add(savePanel);
 
-	GridBagConstraints m = new GridBagConstraints();
-	m.fill = GridBagConstraints.HORIZONTAL;
-	m.weightx = 0;
-	m.weighty = 0;
-	m.gridx = 0;
-	m.gridy = 6;
+	// GridBagConstraints m = new GridBagConstraints();
+	// m.fill = GridBagConstraints.HORIZONTAL;
+	// m.weightx = 0;
+	// m.weighty = 0;
+	// m.gridx = 0;
+	// m.gridy = 6;
 
-	c.fill = GridBagConstraints.HORIZONTAL;
-	c.weightx = 0;
-	c.weighty = 0;
-	c.gridx = 0;
-	c.gridy = 5;
+	// c.fill = GridBagConstraints.HORIZONTAL;
+	// c.weightx = 0;
+	// c.weighty = 0;
+	// c.gridx = 0;
+	// c.gridy = 5;
 		
 	// adds cipherBoxPanel05 panel to the end of keyAre Panel
-	keyAreaPanel.add(EnandDnPanel,c);
-	keyAreaPanel.add(cipherBoxPanel05,m);
+	// keyAreaPanel.add(EnandDnPanel,c);
+	// keyAreaPanel.add(cipherBoxPanel05,m);
+
+	// cipherPanel.add()
 	
 	// adds all Panels to inputKeyTextPanel
-	inputKeyTextPanel.add(labelAreaPanel);
-	inputKeyTextPanel.add(keyAreaPanel);
-	inputKeyTextPanel.add(keygenAreaPanel);
-	inputKeyTextPanel.add(exeAreaPanel);
+	// inputKeyTextPanel.add(labelAreaPanel);
+	// inputKeyTextPanel.add(keyAreaPanel);
+	// inputKeyTextPanel.add(keygenAreaPanel);
+	// inputKeyTextPanel.add(exeAreaPanel);
+	inputKeyTextPanel.add(cipherPanel);
+	inputKeyTextPanel.add(EnandDnPanel);
+	inputKeyTextPanel.add(cipherBoxPanel05);
 	
 	// adds components to overall frame
 	frame.getContentPane().add(BorderLayout.WEST, inputTextPanel);
