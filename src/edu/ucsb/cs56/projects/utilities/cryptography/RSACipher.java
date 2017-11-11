@@ -1,4 +1,5 @@
-//missing package name
+package edu.ucsb.cs56.projects.utilities.cryptography;
+
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyFactory;
