@@ -29,14 +29,16 @@ public class RSACipherTest  {
       System.out.println("PRIVATE KEY");
       System.out.println(cipher1.getPrivateKey());
 
-      String message = "This message is not encrypted";
-      System.out.println("Going to encrypt :" + message);
+      String message = "please encrypt this";
+      System.out.println("Going to encrypt the message:" + message);
       String encrypted = cipher1.encrypt(message);
       System.out.println(encrypted);
 
       System.out.println("Going to decrypt now:");
+      System.out.println("Your message was :");
       String decrypted = cipher1.decrypt(encrypted);
       System.out.println(decrypted);
+      System.out.println("I just deciphered the text");
   }
 
 }
