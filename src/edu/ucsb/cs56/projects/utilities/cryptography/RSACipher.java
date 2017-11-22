@@ -89,7 +89,7 @@ public class RSACipher  {
 
      //intake the string representation of a public key
      //from the GUI, turn it into a PublicKey object
-    private void setPublicKeyObject(String publicKeyString) throws InvalidKeySpecException, NoSuchAlgorithmException{
+    public void setPublicKeyObject(String publicKeyString) throws InvalidKeySpecException, NoSuchAlgorithmException{
        byte[] publicBytes = publicKeyString.getBytes();
        X509EncodedKeySpec spec = new X509EncodedKeySpec(Base64.getDecoder().decode(publicBytes));
        KeyFactory kf = KeyFactory.getInstance("RSA");
@@ -99,7 +99,7 @@ public class RSACipher  {
 
      //intake string representation of a private key object's Bytes
      //from the GUI, turn back into privateKeyObject
-    private void setPrivateKeyObject(String privateKeyString) throws NoSuchAlgorithmException, InvalidKeySpecException{
+    public void setPrivateKeyObject(String privateKeyString) throws NoSuchAlgorithmException, InvalidKeySpecException{
        byte[] privateBytes = privateKeyString.getBytes();
        PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateBytes));
        KeyFactory kf = KeyFactory.getInstance("RSA");

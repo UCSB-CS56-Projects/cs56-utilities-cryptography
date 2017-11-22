@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.SwingUtilities;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 /**
    A class holding methods for action listener, will be called in actionPerform of every action listener.
@@ -280,11 +282,17 @@ public class GUIActionMethod {
 	if((rsaGUI.RsaKeyInput.getText().equals(null)||rsaGUI.RsaKeyInput.getText().length()==0)&&!GUI.encryptMode){
 	    for (int j=0;j<rsaGUI.storedKey.size();++j){
 		if(GUI.storedMethod.get(j).equals("rsa")&&GUI.storedOutput.get(j).equals(rsaGUI.inputArea.getText())){
-		    rsaGUI.rsaKeyA=Integer.parseInt(rsaGUI.storedKey.get(j).split(" ")[0]);
-		    rsaGUI.rsaKeyB=Integer.parseInt(rsaGUI.storedKey.get(j).split(" ")[1]);
-		    rsaGUI.rsaCipher.setRsaKeyA(rsaGUI.rsaKeyA);
-		    rsaGUI.rsaCipher.setRsaKeyB(rsaGUI.rsaKeyB);
-		    rsaGUI.RsaKeyInput.setText(Integer.toString(rsaGUI.rsaKeyA)+" "+rsaGUI.rsaKeyB);
+		    rsaGUI.rsaKeyA= rsaGUI.storedKey.get(j).split(" ")[0];
+		    rsaGUI.rsaKeyB=rsaGUI.storedKey.get(j).split(" ")[1];
+		    try{
+		    		rsaGUI.rsaCipher.setPublicKeyObject(rsaGUI.rsaKeyA + "");
+		    		rsaGUI.rsaCipher.setPrivateKeyObject(rsaGUI.rsaKeyB + "");
+			}catch(InvalidKeySpecException e1){
+				e1.printStackTrace();
+			}catch(NoSuchAlgorithmException e2){
+				e2.printStackTrace();
+			}
+		    rsaGUI.RsaKeyInput.setText(rsaGUI.rsaKeyA+" "+rsaGUI.rsaKeyB);
 		}
 	    }
 	}
@@ -295,10 +303,10 @@ public class GUIActionMethod {
 	// gets keys from key text field and sets as the keys in cipher object
 	try {
 	    rsaGUI.key = rsaGUI.RsaKeyInput.getText();
-	    rsaGUI.rsaKeyA = Integer.parseInt(rsaGUI.key.substring(0, rsaGUI.key.indexOf(' ')));
-	    rsaGUI.rsaKeyB = Integer.parseInt(rsaGUI.key.substring(rsaGUI.key.indexOf(' ') + 1));
-	    rsaGUI.rsaCipher.setRsaKeyA(rsaGUI.rsaKeyA);
-	    rsaGUI.rsaCipher.setRsaKeyB(rsaGUI.rsaKeyB);
+	    rsaGUI.rsaKeyA = rsaGUI.key.substring(0, rsaGUI.key.indexOf(' '));
+	    rsaGUI.rsaKeyB = (rsaGUI.key.substring(rsaGUI.key.indexOf(' ') + 1));
+	    rsaGUI.rsaCipher.setPublicKeyObject(rsaGUI.rsaKeyA + "");
+	    rsaGUI.rsaCipher.setPrivateKeyObject(rsaGUI.rsaKeyB + "");
 	    rsaGUI.cipherText = "";
 
 	    // checks if encrypting or decrypting
@@ -424,9 +432,13 @@ public class GUIActionMethod {
 	// get text from plaintext text field
 	rsaGUI.plainText = rsaGUI.inputArea.getText();
 	rsaGUI.inputs = rsaGUI.plainText.split("\\s+");
-	rsaGUI.rsaCipher.generateKey();
-	rsaGUI.rsaKeyA = rsaGUI.rsaCipher.getRsaKeyA();
-	rsaGUI.rsaKeyB = rsaGUI.rsaCipher.getRsaKeyB();
+	try{
+		rsaGUI.rsaCipher.generateKey();
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+	rsaGUI.rsaKeyA = rsaGUI.rsaCipher.getPublicKey();
+	rsaGUI.rsaKeyB = rsaGUI.rsaCipher.getPrivateKey();
 	rsaGUI.cipherText = "";
 	try{
 	    //check if in decryption mode
