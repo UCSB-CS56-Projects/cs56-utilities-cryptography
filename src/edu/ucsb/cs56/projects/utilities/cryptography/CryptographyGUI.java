@@ -40,11 +40,13 @@ public class CryptographyGUI {
     AffineCipher affineCipher = null;
     VigenereCipher vigenereCipher = null;
     BifidCipher bifidCipher = null;
+    RSACipher rsaCipher = null;
 
     String plainText = null;
     String cipherText = null;
     String newLine = System.getProperty("line.separator");
-    int shiftKey, keyA, keyB, affineKeyA, affineKeyB, last, rsaKeyA, rsaKeyB;
+    int shiftKey, keyA, keyB, affineKeyA, affineKeyB, last;
+    String rsaKeyA, rsaKeyB;
     String key;
     String[] inputs;
     String[] decryptInputs;
@@ -52,13 +54,14 @@ public class CryptographyGUI {
     String[] affineInputs;
     String[] vigenereInputs;
     String[] bifidInputs;
+    String[] rsaInputs;
 
     ArrayList<String> storedKey=new ArrayList<String>();
     ArrayList<String> storedOutput=new ArrayList<String>();
     ArrayList<String> storedMethod=new ArrayList<String>();
 
     JFrame frame;
-    JButton shift, vigenere, affine, bifid, current, mode, info, copy, clean, allNewWindow, rsaWindow, save, readFile, tutorial;
+    JButton shift, vigenere, affine, bifid, rsa, current, mode, info, copy, clean, allNewWindow, rsaWindow, save, readFile, tutorial;
     JButton shiftRandom, affineRandom, vigenereRandom, bifidRandom, allRandom, rsaRandom;
     JPanel cipherButtonPanel, modeButtonInfoPanel, textFieldPanel, inputTextPanel;
     JPanel outputTextPanel, inputKeyTextPanel,inputOutputPanel, cipherBoxPanel01, cipherBoxPanel02, savePanel;
@@ -151,6 +154,7 @@ public class CryptographyGUI {
 	affineCipher = new AffineCipher();
 	vigenereCipher = new VigenereCipher();
 	bifidCipher = new BifidCipher();
+	rsaCipher = new RSACipher();
 
 	//setup overall frame options
 	frame = new JFrame();
@@ -207,7 +211,7 @@ public class CryptographyGUI {
 	cipherPanel = new JPanel();
 	cipherPanel.setLayout(gbl);
 	GridBagConstraints constraints = new GridBagConstraints();
-	final int CIPHER_COUNT = 4;
+	final int CIPHER_COUNT = 5;
 
 
 	// //create the labelAreaPanel and config
@@ -246,11 +250,14 @@ public class CryptographyGUI {
 	ViLabel.setText("Vigenere Cipher key: ");
 	BiLabel = new JLabel();
 	BiLabel.setText("Bifid Cipher key: ");
+	RsaLabel = new JLabel();
+	RsaLabel.setText("RSA Cipher key: ");
 	ArrayList<JLabel> cipherLabels = new ArrayList<JLabel>(){{
 		add(ShLabel);
 		add(AfLabel);
 		add(ViLabel);
 		add(BiLabel);
+		add(RsaLabel);
 	}};
 	//define TextAreas
 	
@@ -262,11 +269,16 @@ public class CryptographyGUI {
 	BiKeyInput = new JTextArea("",2,15);
 	BiKeyInput.setLineWrap(true);
 	BiKeyInput.setWrapStyleWord(true);
+	
+	RsaKeyInput = new JTextArea("",15,15);
+	RsaKeyInput.setLineWrap(true);
+	RsaKeyInput.setWrapStyleWord(true);
 	ArrayList<JTextArea> cipherTextAreas = new ArrayList<JTextArea>(){{
 		add(ShKeyInput);
 		add(AfKeyInput);
 		add(ViKeyInput);
 		add(BiKeyInput);
+		add(RsaKeyInput);
 	}};
 
 	
@@ -274,17 +286,20 @@ public class CryptographyGUI {
 	affineRandom = new JButton("keyGen");
 	vigenereRandom = new JButton("keyGen");
 	bifidRandom = new JButton("keyGen");
+	rsaRandom = new JButton("keyGen");
 
 	affineRandom.addActionListener((AfRam)->new GUIActionMethod(this).AffineGenKey());
 	bifidRandom.addActionListener((BiRam) -> new GUIActionMethod(this).BifidGenKey());
 	shiftRandom.addActionListener((ShRam) ->new GUIActionMethod(this).ShiftGenKey());
 	vigenereRandom.addActionListener((ViRam) -> new GUIActionMethod(this).VigenereGenKey());
+	rsaRandom.addActionListener((RsaRam) -> new GUIActionMethod(this).RSAGenKey());
 
 	ArrayList<JButton> keyGenButtons = new ArrayList<JButton>(){{
 		add(shiftRandom);
 		add(affineRandom);
 		add(vigenereRandom);
 		add(bifidRandom);
+		add(rsaRandom);
 	}};
 
 	//create cipher buttons and add listeners
@@ -300,11 +315,15 @@ public class CryptographyGUI {
 	bifid = new JButton("Execute BIFID");
 	bifid.addActionListener((ExBi)->new GUIActionMethod(this).ExecuteBifid());
 
+	rsa = new JButton("Execute RSA");
+	rsa.addActionListener((ExRsa)->new GUIActionMethod(this).ExecuteRSACipher());
+
 	ArrayList<JButton> executeButtons = new ArrayList<JButton>(){{
 		add(shift);
 		add(affine);
 		add(vigenere);
 		add(bifid);
+		add(rsa);
 	}};
 
 	for(int i = 0; i < CIPHER_COUNT; i++){
@@ -416,10 +435,11 @@ public class CryptographyGUI {
 	allNewWindow = new JButton("All Cipher");
 	allNewWindow.addActionListener((AllCipherGUI) -> new GUIActionMethod(this).MakeAllCipherGUI());
 
+	/* blocked while testing integration of rsa into main window
 	//create RSA button and add listener
 	rsaWindow = new JButton("RSA Window");
 	rsaWindow.addActionListener((RSAWindow) -> new GUIActionMethod(this).MakeRSACipherGUI());
-
+	*/
 
 	tutorial = new JButton("Tutorial");
 	tutorial.addActionListener(new ActionListener(){
@@ -428,6 +448,7 @@ public class CryptographyGUI {
 			disp.go();
 		}
 	});
+	
 
 	//create random key generator panel, add buttons
 	// keygenAreaPanel=new JPanel();
@@ -485,9 +506,8 @@ public class CryptographyGUI {
 	//make cipher key gen buttons		      
 	
 	allRandom = new JButton("keyGen");
-	rsaRandom = new JButton("keyGen");
 	allRandom.addActionListener((AlRam) ->new GUIActionMethod(this).AllGenKey());
-	rsaRandom.addActionListener((RsaRam) -> new GUIActionMethod(this).RSAGenKey());
+	
 	//cipherBoxPanel05 actually holds buttons like current, switch, info
 	cipherBoxPanel05 = new JPanel();
 	cipherBoxPanel05.setLayout(new BoxLayout(cipherBoxPanel05, BoxLayout.X_AXIS));
@@ -545,7 +565,6 @@ public class CryptographyGUI {
 	cipherBoxPanel05.add(info);
 	cipherBoxPanel05.add(copy);
 	cipherBoxPanel05.add(clean);
-	cipherBoxPanel05.add(rsaWindow);
 	cipherBoxPanel05.add(tutorial);
 
 	//add save button to input text panel

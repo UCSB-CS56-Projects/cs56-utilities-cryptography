@@ -279,44 +279,44 @@ public class GUIActionMethod {
     }
 
     public void ExecuteRSACipher() {
-	if((rsaGUI.RsaKeyInput.getText().equals(null)||rsaGUI.RsaKeyInput.getText().length()==0)&&!GUI.encryptMode){
-	    for (int j=0;j<rsaGUI.storedKey.size();++j){
-		if(GUI.storedMethod.get(j).equals("rsa")&&GUI.storedOutput.get(j).equals(rsaGUI.inputArea.getText())){
-		    rsaGUI.rsaKeyA= rsaGUI.storedKey.get(j).split(" ")[0];
-		    rsaGUI.rsaKeyB=rsaGUI.storedKey.get(j).split(" ")[1];
+	if((GUI.RsaKeyInput.getText().equals(null)||GUI.RsaKeyInput.getText().length()==0)&&!GUI.encryptMode){
+	    for (int j=0;j<GUI.storedKey.size();++j){
+		if(GUI.storedMethod.get(j).equals("rsa")&&GUI.storedOutput.get(j).equals(GUI.inputArea.getText())){
+		    GUI.rsaKeyA = GUI.storedKey.get(j).split(" ")[0];
+		    GUI.rsaKeyB = GUI.storedKey.get(j).split(" ")[1];
 		    try{
-		    		rsaGUI.rsaCipher.setPublicKeyObject(rsaGUI.rsaKeyA + "");
-		    		rsaGUI.rsaCipher.setPrivateKeyObject(rsaGUI.rsaKeyB + "");
+		    		GUI.rsaCipher.setPublicKeyObject(GUI.rsaKeyA + "");
+		    		GUI.rsaCipher.setPrivateKeyObject(GUI.rsaKeyB + "");
 			}catch(InvalidKeySpecException e1){
 				e1.printStackTrace();
 			}catch(NoSuchAlgorithmException e2){
 				e2.printStackTrace();
 			}
-		    rsaGUI.RsaKeyInput.setText(rsaGUI.rsaKeyA+" "+rsaGUI.rsaKeyB);
+		    GUI.RsaKeyInput.setText("PUBLIC KEY===> " + GUI.rsaKeyA +"PRIVATE KEY===>   " + GUI.rsaKeyB);
 		}
 	    }
 	}
 
 	// get text from plaintext text field
-	rsaGUI.plainText = rsaGUI.inputArea.getText();
-	rsaGUI.inputs = rsaGUI.plainText.split("\\s+");
+	GUI.plainText = GUI.inputArea.getText();
+	GUI.inputs = GUI.plainText.split("\\s+");
 	// gets keys from key text field and sets as the keys in cipher object
 	try {
-	    rsaGUI.key = rsaGUI.RsaKeyInput.getText();
-	    rsaGUI.rsaKeyA = rsaGUI.key.substring(0, rsaGUI.key.indexOf(' '));
-	    rsaGUI.rsaKeyB = (rsaGUI.key.substring(rsaGUI.key.indexOf(' ') + 1));
-	    rsaGUI.rsaCipher.setPublicKeyObject(rsaGUI.rsaKeyA + "");
-	    rsaGUI.rsaCipher.setPrivateKeyObject(rsaGUI.rsaKeyB + "");
-	    rsaGUI.cipherText = "";
+	    GUI.key = GUI.RsaKeyInput.getText();
+	    GUI.rsaKeyA = GUI.key.substring(0, GUI.key.indexOf(' '));
+	    GUI.rsaKeyB = (GUI.key.substring(GUI.key.indexOf(' ') + 1));
+	    GUI.rsaCipher.setPublicKeyObject(GUI.rsaKeyA + "");
+	    GUI.rsaCipher.setPrivateKeyObject(GUI.rsaKeyB + "");
+	    GUI.cipherText = "";
 
 	    // checks if encrypting or decrypting
-	    for(int i = 0; i < rsaGUI.inputs.length; i++) {
+	    for(int i = 0; i < GUI.inputs.length; i++) {
 		if (GUI.encryptMode)
-		    rsaGUI.cipherText += rsaGUI.rsaCipher.encrypt(rsaGUI.inputs[i]);
+		    GUI.cipherText += GUI.rsaCipher.encrypt(GUI.inputs[i]);
 		else {
-		    rsaGUI.cipherText += rsaGUI.rsaCipher.decrypt(rsaGUI.inputs[i]);}
-		if(i < rsaGUI.inputs.length - 1)
-		    rsaGUI.cipherText += " ";
+		    GUI.cipherText += GUI.rsaCipher.decrypt(GUI.inputs[i]);}
+		if(i < GUI.inputs.length - 1)
+		    GUI.cipherText += " ";
 	    }
 
 	    //Write the file to directory
@@ -328,23 +328,23 @@ public class GUIActionMethod {
 		    }
 		    File myFile = new File(GUI.addressText.getText(), GUI.fileNameText.getText());
 		    PrintWriter textFileWriter = new PrintWriter(new FileWriter(myFile,true));
-		    textFileWriter.println("rsa,"+rsaGUI.RsaKeyInput.getText()+","+rsaGUI.cipherText);
+		    textFileWriter.println("rsa,"+GUI.RsaKeyInput.getText()+","+GUI.cipherText);
 		    textFileWriter.close();
 		}else{PrintWriter out = new PrintWriter(new FileWriter(GUI.fileNameText.getText(),true));
-		    out.println("rsa,"+rsaGUI.RsaKeyInput.getText()+","+rsaGUI.cipherText);
+		    out.println("rsa,"+GUI.RsaKeyInput.getText()+","+GUI.cipherText);
 		    out.close();}
-		rsaGUI.outputArea.setText(rsaGUI.cipherText);
+		GUI.outputArea.setText(GUI.cipherText);
 	    } catch (Exception ex){
 		ex.printStackTrace();
 	    }
 
 	    // puts result in the output label
-	    rsaGUI.outputArea.setText(rsaGUI.cipherText);
+	    GUI.outputArea.setText(GUI.cipherText);
 	    GUI.last=1;
 	    
 	} catch (Exception ex) {
 	    // create popup
-	    rsaGUI.messagePopUp("Incorrect input for RSA Cipher.\nPlaintext " +
+	    GUI.messagePopUp("Incorrect input for RSA Cipher.\nPlaintext " +
 				"input is a String without non-alphabetic characters.\nKey takes 2 integers " +
 				"(a and b) both being two different large prime numbers.\n",
 				"Affine Cipher Input Error");
@@ -430,16 +430,16 @@ public class GUIActionMethod {
     //generate random key of RSA cipher
     public void RSAGenKey(){
 	// get text from plaintext text field
-	rsaGUI.plainText = rsaGUI.inputArea.getText();
-	rsaGUI.inputs = rsaGUI.plainText.split("\\s+");
+	GUI.plainText = GUI.inputArea.getText();
+	GUI.inputs = GUI.plainText.split("\\s+");
 	try{
-		rsaGUI.rsaCipher.generateKey();
+		GUI.rsaCipher.generateKey();
 	}catch(Exception e){
 		e.printStackTrace();
 	}
-	rsaGUI.rsaKeyA = rsaGUI.rsaCipher.getPublicKey();
-	rsaGUI.rsaKeyB = rsaGUI.rsaCipher.getPrivateKey();
-	rsaGUI.cipherText = "";
+	GUI.rsaKeyA = GUI.rsaCipher.getPublicKey();
+	GUI.rsaKeyB = GUI.rsaCipher.getPrivateKey();
+	GUI.cipherText = "";
 	try{
 	    //check if in decryption mode
 	    checkMode();
@@ -449,7 +449,7 @@ public class GUIActionMethod {
 	}
 
 	// put the random key to the key bar
-	rsaGUI.RsaKeyInput.setText(rsaGUI.rsaKeyA+" "+rsaGUI.rsaKeyB);
+	GUI.RsaKeyInput.setText(GUI.rsaKeyA+" "+ GUI.rsaKeyB);
     }
 	
     // generate random key of affine cipher	 
