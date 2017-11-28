@@ -563,7 +563,19 @@ public class GUIActionMethod {
 	
 	allGUI.bifidCipher.generateKey();
 	allGUI.key += allGUI.bifidCipher.getCipherKey();
+	allGUI.key += ",";
+
+	try{
+
+	allGUI.rsaCipher.generateKey();
+	allGUI.key +=  allGUI.rsaCipher.getPublicKey() + "\n" + allGUI.rsaCipher.getPrivateKey();
+
+	}catch(Exception e){
+		e.printStackTrace();
+	}
+
 	allGUI.cipherText = "";
+	
 	//put the random key to the key bar
 	allGUI.AllKeyInput.setText(allGUI.key);
     }
@@ -596,7 +608,7 @@ public class GUIActionMethod {
 	    allGUI.key = allGUI.AllKeyInput.getText();
 	    String[] keyInputs = allGUI.key.split(",");
 	    for(int x = 0; x < keyInputs.length; x++)
-		System.out.println(keyInputs[x]);
+		System.out.println(x + ": " + keyInputs[x]);
 	    int shiftKey = Integer.parseInt(keyInputs[0]);
 	    allGUI.shiftCipher.setCipherKey(shiftKey);
 	    allGUI.affineKeyA = Integer.parseInt(keyInputs[1].substring(0,
@@ -607,6 +619,10 @@ public class GUIActionMethod {
 	    allGUI.affineCipher.setKeyB(allGUI.affineKeyB);
 	    allGUI.vigenereCipher.setCipherKey(keyInputs[2]);
 	    allGUI.bifidCipher.setCipherKey(keyInputs[3]);
+
+	    allGUI.rsaCipher.setPublicKeyObject(keyInputs[4].substring(0, keyInputs[4].indexOf("\n")));
+	    // System.out.println("privateKey: " + allGUI.rsaCipher.getPrivateKey());
+	    allGUI.rsaCipher.setPrivateKeyObject(keyInputs[4].substring(keyInputs[4].indexOf("\n") + 1));
 	    allGUI.cipherText = "";
 	    //Adds all encryption/decryption to output string
 	    if(GUI.encryptMode) {
@@ -634,6 +650,14 @@ public class GUIActionMethod {
 		    allGUI.cipherText += allGUI.bifidCipher.encrypt(allGUI.inputs[d]);
 		    allGUI.cipherText += " ";
 		}
+
+		allGUI.cipherText += allGUI.newLine;
+		allGUI.cipherText += "RSA: ";
+		for(int e = 0; e < allGUI.inputs.length; e++) {
+		    allGUI.cipherText += allGUI.rsaCipher.encrypt(allGUI.inputs[e]);
+		    allGUI.cipherText += " ";
+		}
+		
 	    }
 	    else {
 		allGUI.cipherText = "Shift: ";
@@ -684,6 +708,7 @@ public class GUIActionMethod {
 	    }
 	} catch (Exception ex) {
 	    // create popup
+	    ex.printStackTrace();
 	    allGUI.messagePopUp("Wrong keys or Text format, please see info", "All Cipher Input Error");
 	}
     }

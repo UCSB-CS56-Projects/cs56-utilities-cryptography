@@ -33,6 +33,7 @@ public class AllCipherGUI
 	AffineCipher affineCipher = null;
 	VigenereCipher vigenereCipher = null;
 	BifidCipher bifidCipher = null;
+	RSACipher rsaCipher = null;
 
 	String plainText = null;
 	String cipherText = null;
@@ -45,6 +46,7 @@ public class AllCipherGUI
 	String[] affineInputs;
 	String[] vigenereInputs;
 	String[] bifidInputs;
+	String[] rsaInputs;
 
 	ArrayList<String> storedKey=new ArrayList<String>();
 	ArrayList<String> storedOutput=new ArrayList<String>();
@@ -98,6 +100,7 @@ public class AllCipherGUI
 		affineCipher = new AffineCipher();
 		vigenereCipher = new VigenereCipher();
 		bifidCipher = new BifidCipher();
+		rsaCipher = new RSACipher();
 
 		// setup overall frame options
 		frame = new JFrame();
