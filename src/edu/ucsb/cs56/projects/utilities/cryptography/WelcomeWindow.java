@@ -53,8 +53,8 @@ public class WelcomeWindow {
 		infoButton.addActionListener(new infoButtonListener());
 		welcomeButton.addActionListener(new welcomeButtonListener());
 		picButton.addActionListener(new picButtonListener());
-		welcomeLabel.setText("<html><b><u><font size=+2>Welcome to this Cryptography "
-				+ "Cipher </font></u></b><font size=+1><br> &nbsp This consists of 4 ciphers"
+			welcomeLabel.setText("<html><b><u><font size=+2>Welcome to this Cryptography "
+				+ "Cipher </font></u></b><font size=+1><br> &nbsp This consists of 5 ciphers"
 				+ "<font size=-1><br><br>  &emsp -Shift Cipher: Takes an integer a as the key. "
 				+ "Encrypts the plaintext <br> &emsp&emsp&emsp by shifting the characters along "
 				+ "by adding the key to each of the <br> &emsp&emsp&emsp characters and taking "
@@ -67,7 +67,12 @@ public class WelcomeWindow {
 				+ "<br> <br>&emsp -Bifid Cipher: Takes a String s as the key. Encrypts the plaintext <br>"
 				+ "&emsp&emsp&emsp by applying the Bifid Cipher to each character using a 25 letter<br> "
 				+ "&emsp&emsp&emsp 'key square' example of encryption using this 25 letter 'key square'"
+				+ "<br> <br>&emsp -RSA Cipher: Takes a Public/Private key pair in the key input. Encrypts the plaintext <br>"
+				+ "&emsp&emsp&emsp by applying the Private Key, and decrypts with the Public Key<br> "
+				+ "&emsp&emsp&emsp using RSA encryption of base 512"
 				+ "<font size=+1><br><br> Try it yourself!</font></html>");
+
+	        
 
 		checkBox = new JCheckBox("Do Not Show This Welcome Window Again");
 		checkPanel.add(checkBox);		
@@ -85,7 +90,7 @@ public class WelcomeWindow {
 		public void actionPerformed(ActionEvent event){
 			infoLabel = new JLabel();
 			
-			infoLabel.setText("<html><b><u><font size=+2> Format of Input for GUI:</font></u></b>"
+				infoLabel.setText("<html><b><u><font size=+2> Format of Input for GUI:</font></u></b>"
 					+ "<br>Spaces can be used for plaintext input fields, but only "
 					+ "certain keys utilize spaces. <br>Capital letters for plaintext can be used "
 					+ "but will be translated to lowercase <br>prior to any cryptographic operation "
@@ -97,10 +102,13 @@ public class WelcomeWindow {
 					+ "the additional condition that the first integer must <br> be a"
 					+ "coprime with 26.<br><br>Vigenere Cipher:<br>   Key text field "
 					+ "should contain a string of characters.<br><br>Bifid Cipher:<br>   The"
-					+ "plaintext for the Bifid Cipher can contain spaces but no numbers <br>and"
-					+ " it will convert all characters to uppercase. Key text field should contain<br> a string of characters with at least"
-					+ "one uppercase letter.<br><br> All Ciphers:<br>    Keys should follow the format "
-					+ "of the respective cyphers. <br>All four keys must be used and there"
+					+ "plaintext for the Bifid Cipher can contain spaces but no numbers <br>"
+					+ "but will convert all letter to uppercase. Key text field should contain<br> a string of characters with at least"
+					+ "one uppercase letter.<br><br>RSA Cipher:<br>   The "
+					+ "plaintext for the RSA Cipher can contain spaces and  numbers <br>and"
+					+ " Key text field should contain a pair of strings of characters.<br> "
+					+ "separated by a space.The generated key pair will be delimted by == at the end of each key.<br><br> All Ciphers:<br>    Keys should follow the format "
+					+ "of the respective cyphers. <br>All five keys must be used and there"
 					+ "cannot be any spaces <br>within the key string except"
 					+ "for the affine cypher key.<br><br>Current: Do not change or input new strings"
 					+ "into the input or key text fields. <br>The program will clear the textfields"
