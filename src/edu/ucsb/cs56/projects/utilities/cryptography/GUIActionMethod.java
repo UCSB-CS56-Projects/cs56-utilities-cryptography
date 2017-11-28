@@ -826,13 +826,17 @@ public class GUIActionMethod {
 	GUI.encryptMode = true;//switch to encryptmode
 	GUI.inputText.setText("Plain Text: ");
 	GUI.outputText.setText("Ciphered Text: ");
+	GUI.inputArea.setText(GUI.outputArea.getText());
+	GUI.outputArea.setText("");
     }
 	
     // switch to decrypt mode	 
     public void SwitchToDecrypt(){
 	GUI.encryptMode = false;//switch to decryptmode
 	GUI.inputText.setText("Ciphered Text: ");
-	GUI.outputText.setText("Plain Text: ");	
+	GUI.outputText.setText("Plain Text: ");
+	GUI.inputArea.setText(GUI.outputArea.getText());
+	GUI.outputArea.setText("");
     }
 
     // copy the output text	 
