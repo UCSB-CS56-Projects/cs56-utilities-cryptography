@@ -37,7 +37,7 @@ Vigenere Cipher:
       e.g.
       plaintext = "random"
       key = "abc"
-      
+
       Line up:	random
       	   	abcabc
 
@@ -46,36 +46,36 @@ Vigenere Cipher:
 Bifid Cipher:
 	Takes a String s as the key.
 	Encrypts the plaintext by applying the Bifid Cipher to each character using a 25 letter 'key square' example of encryption using this 25 letter 'key square'
-	   
+
 	   1 2 3 4 5
-	   
+
 	1| p h q g m
-	
+
 	2| e a y l n
-	
+
 	3| o f d x k
-	
+
 	4| r c v s z
-	
+
 	5| w b u t i
-	
+
 	e.g.
 	plaintext:   defend the east wall of the castle
-	
+
 	step 1: row  323223 512 2245 5222 33 512 424522
 	        col  312153 421 1244 1244 12 421 224441
-	        
-	step 2:      32322 35122 24552 22335 12424 522 
-	             31215 34211 24412 44124 21224 441 
-	             
+
+	step 2:      32322 35122 24552 22335 12424 522
+	             31215 34211 24412 44124 21224 441
+
 	step 3:      3232231215 3512234211 2455224412 2233544124 1242421224 522441
-	
+
 	step 4:      f f y h m  k h y c p  l i a s h  a d t r l  h c c h l  b l r
 
 RSA Cipher:
 	Two keys are automatically generated.
 	Encrypts plaintext using an RSA Algorithm. First the public key is used for encryption then the private key is used for decryption.
-	
+
 
 Format of Input for GUI:
 
@@ -90,7 +90,7 @@ Affine Cipher:
 
 Vigenere Cipher:
 	Key text field should contain a string of characters.
-	
+
 Bifid Cipher:
 	The Plaintext can have uppercase or lowercase letters and spaces but numbers will result in an error. The key has to have at least one captial letter and no numbers. The key setter will parse out all non capital letters.
 
@@ -108,10 +108,10 @@ W16 final remarks:
 
 -After each cipher, the program will write to a file called "output.txt"
 
-The program itself takes in an input string and input key to encrypt or decrypt the input string. Each encryption cipher has already been defined and most of the work will be in the Cryptography.java file. There is a lot of opportunity to refactor some of the JButton codes. 
+The program itself takes in an input string and input key to encrypt or decrypt the input string. Each encryption cipher has already been defined and most of the work will be in the Cryptography.java file. There is a lot of opportunity to refactor some of the JButton codes.
 
 
-This is the picture included in welcome window and is a pictorial demonstration of general usage of application. 
+This is the picture included in welcome window and is a pictorial demonstration of general usage of application.
 ![alt tag](https://github.com/keithlo/cs56-utilities-cryptography/blob/master/lib/GUI.jpg)
 
 
@@ -144,3 +144,25 @@ F16 final remarks:
 - Added a few comments in the code for clarity
 - Added specific error messages
 - Tip: Follow the methods that are called when a button in the GUI is pressed to get an understanding of how the classes interact with each other.
+
+
+
+F17 Final Remarks:
+**Changes made
+-The welcome screen was updated to reflect the implementation of a fifth cipher, RSA. The jpg in the tutorial was updated to reflected the reorganized GUI.
+-The RSACipher algorithm works to encrypt and decrypt, as well as generated public and private keys as strings. This change has been addressed in the GUI and a test class has been made for RSA.
+-NOTE:When creating the new RSA cipher, we utilized the Cryptography and KeyFactory APIs. Even though we recognize that the Cipher classes share commonalities and should be refactored, we implemented the new RSA cipher in the same style as the first four. This way, future generations can refactor all five ciphers in the same way. The previously created cipher classes could make use of APIs when refactoring.
+-The GUI window is now resizable
+-The tutorial can now be displayed at any time by using the newly implemented tutorial button.
+-When switching from encrypt to decrypt, the ciphered text will automatically be pasted into the text area on the right, which is now the "ciphered text" area, so that way the user doesn't have to copy/paste it manually. When switching back to plain text, the deciphered text from the right side will be pasted into the "plain text" box on the left.
+-The AllCipherGUI now incorporates the RSA cipher so that way all five ciphers can be executed at once.
+
+**Issues we did not addresse
+-We did not implement the QUAD cipher, where a string can be run through a series of four ciphers. Instead, we fixed the current bugs instead of adding enhancements.
+-We did not implement the ability to have numbers in the input, except in the RSA cipher, because the RSA cipher relies on the Cryptography API which is able to handle numbers.
+-We did not refactor any code, but instead focused on debugging
+
+**Room for improvement/future bugs and Issues
+-Add more detailed error messages, some error message dialogs do not match up with the actual error
+-The code needs to be documented better, to better understand how it is organized. There was previously many blocks of commented-out code that should have been deleted.
+-There is little use of design patterns/inheritance/APIs. The overall code could be refactored and reorganized. For example, the Ciphers contain the same methods but do not use any inheritance. The Factory design pattern could be used to generate Keys and KeyPairs. The Java API already has some cryptography utilities built in, so we utilized those when creating the new RSA cipher
