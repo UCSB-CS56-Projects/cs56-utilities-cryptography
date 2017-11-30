@@ -147,8 +147,9 @@ F16 final remarks:
 
 
 
-*** F17 Final Remarks:
-** Changes made
+F17 Final Remarks:
+
+Changes made
 - The welcome screen was updated to reflect the implementation of a fifth cipher, RSA. The jpg in the tutorial was updated to reflected the reorganized GUI.
 - The RSACipher algorithm works to encrypt and decrypt, as well as generated public and private keys as strings. This change has been addressed in the GUI and a test class has been made for RSA.
 - NOTE:When creating the new RSA cipher, we utilized the Cryptography and KeyFactory APIs. Even though we recognize that the Cipher classes share commonalities and should be refactored, we implemented the new RSA cipher in the same style as the first four. This way, future generations can refactor all five ciphers in the same way. The previously created cipher classes could make use of APIs when refactoring.
@@ -157,12 +158,12 @@ F16 final remarks:
 - When switching from encrypt to decrypt, the ciphered text will automatically be pasted into the text area on the right, which is now the "ciphered text" area, so that way the user doesn't have to copy/paste it manually. When switching back to plain text, the deciphered text from the right side will be pasted into the "plain text" box on the left.
 - The AllCipherGUI now incorporates the RSA cipher so that way all five ciphers can be executed at once.
 
-** Issues we did not addresse
+Issues we did not address
 - We did not implement the QUAD cipher, where a string can be run through a series of four ciphers. Instead, we fixed the current bugs instead of adding enhancements.
 - We did not implement the ability to have numbers in the input, except in the RSA cipher, because the RSA cipher relies on the Cryptography API which is able to handle numbers.
-- We did not refactor any code, but instead focused on debugging
 
-** Room for improvement/future bugs and Issues
+
+Room for improvement/future bugs and Issues
 - Add more detailed error messages, some error message dialogs do not match up with the actual error
 - The code needs to be documented better, to better understand how it is organized. There was previously many blocks of commented-out code that should have been deleted.
 - There is little use of design patterns/inheritance/APIs. The overall code could be refactored and reorganized. For example, the Ciphers contain the same methods but do not use any inheritance. The Factory design pattern could be used to generate Keys and KeyPairs. The Java API already has some cryptography utilities built in, so we utilized those when creating the new RSA cipher
