@@ -33,7 +33,8 @@ public class RSACipherGUI
     String plainText = null;
     String cipherText = null;
     String newLine = System.getProperty("line.separator");
-    int rsaKeyA, rsaKeyB, last;
+    String rsaKeyA, rsaKeyB;
+    int last;
     String key;
     String[] inputs;;
 

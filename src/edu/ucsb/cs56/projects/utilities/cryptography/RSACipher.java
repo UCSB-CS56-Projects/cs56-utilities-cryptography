@@ -1,147 +1,135 @@
 package edu.ucsb.cs56.projects.utilities.cryptography;
 
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.KeyFactory;
+import java.security.spec.X509EncodedKeySpec;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import javax.crypto.Cipher;
+import java.util.Base64;
+
 /**
-   A class to implement the RSA Cipher.
-   @author Mario Infante
-   @version Project CS56, F16, 11/19/2016
-*/
-public class RSACipher {
-    private int rsaKeyA;
-    private int rsaKeyB;
-    private int publicE;
-    private int privateD;
+ *    A class to implement the RSA Cipher
+ *    @author Arielle Robles
+ *    @author Kaushik Mahorker
+ *    @version CS56 F17 UCSB
+ *
+ */
+
+public class RSACipher  {
+
+    final static int keySize = 512;
+
+    //for convenient input/output to GUI
+    private String publicKeyString;
+    private String privateKeyString;
+
+    //created so we may use the Crypto library
+    //used to generate PublicKey and PrivateKey objects
+    //then set the String publicKey and privateKey
+    private PublicKey publicKeyObject;
+    private PrivateKey privateKeyObject;
+
+
 
     /**
-       Default no-arg constructor.
-    */
-    public RSACipher(){}
+     * Default no-arg constructor.
+     */
+     public RSACipher(){};
 
-    /**
-       Two-arg constructor.
-       @param rsaKeyA an integer that is used to encrypt the plaintext
-       @param rsaKeyB an integer that is used to encrypt the plaintext
-    */
-    public RSACipher(int rsaKeyA, int rsaKeyB){
-	this.rsaKeyA = rsaKeyA;
-	this.rsaKeyB = rsaKeyB;
-    }
+     /**
+     *Two-arg Constructor
+     @param publicKey string of the RSA PublicKey
+     @param privateKey string of the RSA privateKey
+     */
+    public RSACipher(String publicKey, String privateKey) throws NoSuchAlgorithmException, InvalidKeySpecException{
+       this.publicKeyString = publicKey;
+       this.privateKeyString = privateKey;
+       this.setPublicKeyObject(publicKey);
+       this.setPrivateKeyObject(privateKey);
+     }
 
-    /**
-       Getter for the cipher key A
-       @return cipher key integer
-    */
-    public int getRsaKeyA(){
-	return this.rsaKeyA;
-    }
+     public void generateKey() throws NoSuchAlgorithmException{
+       //generate a public and private key object
+       KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
+       kpg.initialize(keySize);
+       KeyPair keyPair = kpg.generateKeyPair();
 
-    /**
-       Getter for the cipher key B
-       @return cipher key integer
-    */
-    public int getRsaKeyB(){
-	return this.rsaKeyB;
-    }
+       //initialize the keys as objects
+       publicKeyObject = keyPair.getPublic();
+       privateKeyObject = keyPair.getPrivate();
 
-    /**
-        Setter for the cipher key A
-        @param keyA an integer is used to encrypt the plaintext
-    */
-    public void setRsaKeyA(int rsakeyA){
-	this.rsaKeyA = rsaKeyA;
-    }
+       //turn the objects into bytes
+       byte[] publicBytes = publicKeyObject.getEncoded();
+       byte[] privateBytes = privateKeyObject.getEncoded();
 
-    /**
-        Setter for the cipher key B
-        @param keyB an integer is used to encrypt the plaintext
-    */
-    public void setRsaKeyB(int rsakeyB){
-	this.rsaKeyB = rsaKeyB;
-    }
-
-    /**
-       Encryption algorithm for the affine cipher.
-       Each character is multiplied by keyA and then keyB is added, mod 26 to ge
-t the new encrypted character.
-       @param word a plaintext word that is to be encrypted
-       @return the ciphertext (the encrypted plaintext)
-    */
-    public String encrypt(String word){
-	int modulus = rsaKeyA * rsaKeyB;
-	int totient = (rsaKeyA - 1)*(rsaKeyB - 1);
-	publicE = calculateExponent(totient);
-	privateD = 1 + ((int)Math.random()*10)*totient;
-  
-	if(word == null||word.length()==0) throw new IllegalArgumentException();
-	String result = "";
-	String wordLower = word.toLowerCase();
-
-	for(int i=0; i<wordLower.length(); i++){
-	    if(wordLower.charAt(i)<97 || wordLower.charAt(i)>122)
-		throw new IllegalArgumentException();
-	    int a = (wordLower.charAt(i)-97);
-	    int b = (int)Math.pow(a,publicE);
-	    int k = (b%26)+97;
-	    result += Character.toString((char)k);
-	}
-	return result;
-    }
-
-    /**
-       Decryption algorithm for the affine cipher.
-       @param word a ciphertext word the is to be decrypted
-       @return the plaintext (the decrypted ciphertext)
-    */
-    public String decrypt(String word){
-	String result = "";
-	String wordLower = word.toLowerCase(); 
-	for(int i=0; i<wordLower.length(); i++){
-	    if(wordLower.charAt(i)<97 || wordLower.charAt(i)>122)
-		throw new IllegalArgumentException();
-	    int a = (wordLower.charAt(i)-97);
-	    int b = (int)Math.pow(a,privateD);
-	    int k = (b%26)+97;
-	    result += Character.toString((char)k);
-	}
-	return result;
-    }
+      //initialize the keys as strings using their object bytes
+       publicKeyString = Base64.getEncoder().encodeToString(publicBytes);
+       privateKeyString = Base64.getEncoder().encodeToString(privateBytes);
+     }
 
 
-    // keyA range from 1-26
-    //Generate random keyA and KeyB, KeyA is coprime with 26
-    public void generateKey() {
-	while(true){
-	    rsaKeyA = (int)(Math.random()*20000 + 26);
-	    if(isPrime(rsaKeyA)){
-		break;
-	    }
-	}
-	while(true){
-	    rsaKeyB = (int)(Math.random()* 20000 + 26);
-	    if(isPrime(rsaKeyB)&& rsaKeyB != rsaKeyA){
-		break;
-	    }
-	}
-        
-    }
+     //return the string representation of PublicKey object's bytes
+     //for the GUI to display
+     public String getPublicKey(){
+       return this.publicKeyString;
+     }
 
-    public boolean isPrime(int n) {
-	int i;
-	for(i=2;i<=Math.sqrt(n);i++){
-	    if(n%i==0){
-		return false;
-	    }
-	}
-	return true;
-    }
 
-    public int calculateExponent(int totient){
-	int exponent=1;
-	while(exponent<totient){
-	    if(MathUtil.coPrime(exponent,totient) == true){
-		return exponent;
-	    }
-	    exponent++;
-	}
-	return 1;
+     //return string representation of PublicKey object's bytes
+     //for GUI to display
+     public String getPrivateKey(){
+       return this.privateKeyString;
+     }
+
+
+     //intake the string representation of a public key
+     //from the GUI, turn it into a PublicKey object
+    public void setPublicKeyObject(String publicKeyString) throws InvalidKeySpecException, NoSuchAlgorithmException{
+       byte[] publicBytes = publicKeyString.getBytes();
+       X509EncodedKeySpec spec = new X509EncodedKeySpec(Base64.getDecoder().decode(publicBytes));
+       KeyFactory kf = KeyFactory.getInstance("RSA");
+       PublicKey publicKeyObject = kf.generatePublic(spec);
+     }
+
+
+     //intake string representation of a private key object's Bytes
+     //from the GUI, turn back into privateKeyObject
+    public void setPrivateKeyObject(String privateKeyString) throws NoSuchAlgorithmException, InvalidKeySpecException{
+       byte[] privateBytes = privateKeyString.getBytes();
+       PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(Base64.getDecoder().decode(privateBytes));
+       KeyFactory kf = KeyFactory.getInstance("RSA");
+       PrivateKey privateKeyObject = kf.generatePrivate(spec);
+     }
+
+
+     //take in string input from GUI
+     //encrypt it with private key
+     public String encrypt(String plainText) throws Exception{
+       Cipher cipher;
+       cipher = Cipher.getInstance("RSA");
+       cipher.init(Cipher.ENCRYPT_MODE, this.privateKeyObject);
+       byte[] encryptedText = cipher.doFinal(plainText.getBytes());
+       String encoded = Base64.getEncoder().encodeToString(encryptedText);
+       return (encoded);
+     }
+
+     //take in string input from GUI in base 64 String
+    //decrypt it with public key
+    //do final gives back byte array
+    public String decrypt(String encryptedText) throws Exception{
+       byte[] decoded = Base64.getDecoder().decode(encryptedText);
+
+       Cipher cipher;
+       cipher = Cipher.getInstance("RSA");
+       cipher.init(Cipher.DECRYPT_MODE, this.publicKeyObject);
+
+       byte[] decryptedText= cipher.doFinal(decoded);
+
+       return (new String(decryptedText));
     }
 }
